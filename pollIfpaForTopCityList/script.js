@@ -46,7 +46,7 @@ var parseIfpaPage = function (ifpaPage) {
         var playerInfo = {
           playerName: $playerTr.find('td:nth-child(2) > a').html(),
           ifpaId: ifpaProfileUrl.match(ifpaIdRegexp)[1],
-          texasRank: rank + 1,
+          texasRank: rank,
           worldRank: $playerTr.find('td:nth-child(4)').html(),
           points: $playerTr.find('td:nth-child(5)').html(),
           events: $playerTr.find('td:nth-child(6)').html()
