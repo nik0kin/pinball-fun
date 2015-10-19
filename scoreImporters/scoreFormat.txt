@@ -1,0 +1,3 @@
+
+pinId is unique to each pin
+ - The pinId of sopranos at pinballz could be "pinballz2", it being the second physical sopranos pin at pinballz.

@@ -1,0 +1,42 @@
+{
+  "players": {
+    "Sven": 10087,
+    "Mark": 25752,
+    "Jason H": 13526,
+    "Thomas": 27483,
+    "Ray": 22252,
+    "Paul": 37540,
+    "Joey": 25751,
+    "Kirk": 15293,
+    "Wenchy": 34045,
+    "Jon": 10916,
+    "Nik": 27482,
+    "Doreen": 27057,
+    "Matt Murphy": 32771,
+    "Brook": 29823,
+    "Jason N": 35434,
+    "Ryan": 37545,
+    "Amit": 37544,
+    "Justin": 37543,
+    "Langel": 36196,
+    "Matt MacDougall": 37542,
+    "Kyle": 37541,
+    "Amanda": 16350
+  },
+  "pins": {
+    "South Park": "pinballz1",
+    "Space Invaders": "pinballz1",
+    "Star Trek (Stern)": "pinballz1",
+    "Lord of the Rings": "pinballz1",
+    "Walking Dead": "pinballz1",
+    "Bride of Pinbot": "pinballz1",
+    "Pinbot": "pinballz1",
+    "Funhouse": "pinballz1",
+    "Guns & Roses": "pinballz1",
+    "Avatar": "pinballz1",
+    "Street Fighter 2": "pinballz1",
+    "Johnny Mnemonic": "pinballz1",
+    "Metallica": "pinballz1",
+    "Terminator 2": "pinballz1"
+  }
+}
