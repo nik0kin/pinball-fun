@@ -38,7 +38,7 @@ var getRawSheetQ = function (gSheet, sheetNum, playersNum, gamesNum, positionOfT
       if (err) {
         return reject(err);
       }
-      console.log( 'pulled in '+data.length + ' rows');
+      //console.log( 'pulled in '+data.length + ' rows');
       //console.log(data)
 
       var spreadsheetArray = [];

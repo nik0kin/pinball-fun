@@ -1,0 +1,29 @@
+{
+  "players": {
+    "Sven": 10087,
+    "Mark": 25752,
+    "Thomas": 27483,
+    "Ray": 22252,
+    "Kirk": 15293,
+    "Nik": 27482,
+    "Matt": 32771,
+    "Brook": 29823,
+    "Phoenix": 25749,
+    "Langel": 36196,
+    "Sean": 22253
+  },
+  "pins": {
+    "Kiss": "pinballz1",
+    "Space Invaders": "pinballz1",
+    "TMNT": "pinballz1",
+    "Haunted House": "pinballz1",
+    "Transformers": "pinballz1",
+    "Eight Ball Deluxe": "pinballz1",
+    "Meteor": "pinballz1",
+    "Dark Knight": "pinballz1",
+    "NBA Fast Break": "pinballz1",
+    "Playboy": "pinballz1",
+    "Medieval Madness": "pinballz1",
+    "Tales From the Crypt": "pinballz1"
+  }
+}

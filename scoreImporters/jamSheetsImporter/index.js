@@ -1,3 +1,5 @@
+// node ./thisScript <Google Sheets Id> <Description of Data> <Save Path for JSON> <Amount of Extra Balls> <player & pin config json path> <array of games per week>
+
 var Q = require('q'),
     fs = require('fs'),
     path = require('path')
@@ -9,7 +11,8 @@ var googleSheetsId = process.argv[2],
     dataName = process.argv[3],
     savePath = path.join(process.cwd(), process.argv[4], (dataName + '.json').replace(/ /g, '_')),
     extraBalls = process.argv[5],
-    playerAndMachineConfigFile = path.join(process.cwd(), process.argv[6]);
+    playerAndMachineConfigFile = path.join(process.cwd(), process.argv[6]),
+    gamesTotal = JSON.parse(process.argv[7]); // an array of the amount of games played each week. eg [4,5,5]
 
 var positionOfTableTop = 6;
 
@@ -40,8 +43,7 @@ Q()
     });
   })
   .then(function () {
-    var playersTotal = 22;
-    var gamesTotal = [4,5,5];
+    var playersTotal = _.keys(playerAndMachineConfig.players).length;
     var gamesNamesArray = [];
 
     var playerColumn = 1;
@@ -51,7 +53,7 @@ Q()
     var scoresJsonArray = [];
 
     _.each(rawScoreSheetsArray, function (rawScoreSheet, scoreSheetIndex) {
-      console.log('week ' + (scoreSheetIndex+1));
+      //console.log('week ' + (scoreSheetIndex+1));
       
       gamesNamesArray[scoreSheetIndex] = [];
       _.times(gamesTotal[scoreSheetIndex], function (g) {
@@ -78,7 +80,8 @@ Q()
             playerIfpaId: playerAndMachineConfig.players[playerName],
             pinName: gameName,
             pinId: playerAndMachineConfig.pins[gameName],
-            score: score
+            score: score,
+            extraBalls: extraBalls
           };
 
           scoresJsonArray.push(scoreJson);
@@ -86,17 +89,22 @@ Q()
       });
     });
 
-    fs.writeFile(savePath, JSON.stringify(scoresJsonArray), function (err) {
-      if (err) {
-        console.log('failure', err);
-        return;
-      }
-      console.log('success');
+    console.log('found ' + scoresJsonArray.length + ' scores');
+
+    return scoresJsonArray;
+  })
+  .then(function (scoresJsonArray) {
+    return Q.promise(function (resolve, reject) {
+      fs.writeFile(savePath, JSON.stringify(scoresJsonArray), function (err) {
+        if (err) {
+          return reject(err);
+        }
+        console.log('successfully saved to ' + savePath);
+        resolve();
+      });
     });
   })
-// Prompts user for correct Pin names and ids
-
   .fail(function (error) {
     console.log('Error: ', error);
-    console.log(error.stack)
+    console.log(error.stack);
   });
