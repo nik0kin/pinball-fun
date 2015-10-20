@@ -37,11 +37,17 @@ var parseIfpaPage = function (ifpaPage) {
     _.each(playerTrArray, function (playerTr, rank) {
       var $playerTr = $(playerTr);
       var playerRowAsString = $playerTr.html();
-      var found = playerRowAsString.search(cityRegexp) !== -1 || playerRowAsString.search(playersRegexp) !== -1;
+      var playerCityAsString = $playerTr.find('td:nth-child(3)').html() + '';
+
+      var found = playerCityAsString.search(cityRegexp) !== -1 || playerRowAsString.search(playersRegexp) !== -1;
       
       if (found) {
         var ifpaProfileUrl = $playerTr.find('td:nth-child(2) > a').attr('href'),
             ifpaIdRegexp = /\/player\.php\?t=p&p=(\d+)/;
+
+        if (!ifpaProfileUrl) {
+          return;
+        }
 
         var playerInfo = {
           playerName: $playerTr.find('td:nth-child(2) > a').html(),
@@ -59,6 +65,7 @@ var parseIfpaPage = function (ifpaPage) {
     // save to file
     var fileContent = 'var PINBALL_PLAYERS = ' + JSON.stringify(playersInCityArray);
     fs.writeFileSync(SAVE_PATH, fileContent, 'utf8');
+    console.log('successfully save to ' + SAVE_PATH);
   });
 };
 
