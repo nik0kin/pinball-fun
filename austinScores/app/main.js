@@ -194,6 +194,9 @@ $(function () {
         context['p'+num+'High']  = addCommas(playerHighScoreByPin[ifpaId][pinName]);
         context['p'+num+'Low']  = addCommas(playerLowScoreByPin[ifpaId][pinName]);
         context['p'+num+'Plays']  = addCommas(playerPlaysByPin[ifpaId][pinName]);
+
+        var ratio = playerAverageScoreByPin[ifpaId][pinName] / allAveragesByPin[pinName];
+        context['p'+num+'GoodOrBad'] = (ratio > 1.25) ? 'good' : (ratio < .75) ? 'bad' : '';  
       };
 
       fillContext(1, player1);

@@ -7,6 +7,7 @@ html(lang="en")
       | Austin Pinball Scores
     link(rel="stylesheet" href="style.css" type="text/css")
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css")
+    link(href='https://fonts.googleapis.com/css?family=Dosis:400,600,700,500' rel='stylesheet' type='text/css')
 
   body
     script(src="vendor.js")
@@ -24,93 +25,51 @@ html(lang="en")
             tr
               th
               th(colspan="2")
-              th#player1ColumnHeader(colspan="5")
-              th#player2ColumnHeader(colspan="4")
-              th#player3ColumnHeader(colspan="4")
-              th#player4ColumnHeader(colspan="4")
+              th#player1ColumnHeader.player1(colspan="5")
+              th#player2ColumnHeader.player2(colspan="4")
+              th#player3ColumnHeader.player3(colspan="4")
+              th#player4ColumnHeader.player4(colspan="4")
             tr
               th
               th
                 | All Average
               th
                 | All Plays
-              th
+              th.player1
                 | Ratio
-              th
+              th.player1
                 | Average
-              th
+              th.player1
                 | High
-              th
+              th.player1
                 | Low
-              th
+              th.player1
                 | Plays
-              th
+              th.player2
                 | Average
-              th
+              th.player2
                 | High
-              th
+              th.player2
                 | Low
-              th
+              th.player2
                 | Plays
-              th
+              th.player3
                 | Average
-              th
+              th.player3
                 | High
-              th
+              th.player3
                 | Low
-              th
+              th.player3
                 | Plays
-              th
+              th.player4
                 | Average
-              th
+              th.player4
                 | High
-              th
+              th.player4
                 | Low
-              th
+              th.player4
                 | Plays
           tbody
-            tr
-              th.text-nowrap(scope="row")
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-            tr
-              th.text-nowrap(scope="row")
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
-              td
 
 
     script(id="player-column-header" type="text/x-handlebars-template")
@@ -135,37 +94,37 @@ html(lang="en")
           | {{allAverage}}
         td
           | {{allPlays}}
-        td
+        td.player1(class="{{p1GoodOrBad}}")
           | {{p1Ratio}}
-        td
+        td.player1(class="{{p1GoodOrBad}}")
           | {{p1Average}}
-        td
+        td.player1(class="{{p1GoodOrBad}}")
           | {{p1High}}
-        td
+        td.player1(class="{{p1GoodOrBad}}")
           | {{p1Low}}
-        td
+        td.player1
           | {{p1Plays}}
-        td
+        td.player2(class="{{p2GoodOrBad}}")
           | {{p2Average}}
-        td
+        td.player2(class="{{p2GoodOrBad}}")
           | {{p2High}}
-        td
+        td.player2(class="{{p2GoodOrBad}}")
           | {{p2Low}}
-        td
+        td.player2
           | {{p2Plays}}
-        td
+        td.player3(class="{{p3GoodOrBad}}")
           | {{p3Average}}
-        td
+        td.player3(class="{{p3GoodOrBad}}")
           | {{p3High}}
-        td
+        td.player3(class="{{p3GoodOrBad}}")
           | {{p3Low}}
-        td
+        td.player3
           | {{p3Plays}}
-        td
+        td.player4(class="{{p4GoodOrBad}}")
           | {{p4Average}}
-        td
+        td.player4(class="{{p4GoodOrBad}}")
           | {{p4High}}
-        td
+        td.player4(class="{{p4GoodOrBad}}")
           | {{p4Low}}
-        td
+        td.player4
           | {{p4Plays}}
