@@ -10,7 +10,7 @@ var SAVE_PATH = 'austinRankings/austin_players.js';
 
 /////////////////
 
-var env = require('jsdom').env,
+var domEnv = require('jsdom').env,
     fs = require('fs'),
     _ = require('lodash');
 
@@ -23,7 +23,7 @@ var cityRegexp = regexpUtils.getMatchArrayRegexp(CITY_MATCH_TERMS),
 
 
 var parseIfpaPage = function (ifpaPage) {
-  env(ifpaPage, function (errors, window) {
+  domEnv(ifpaPage, function (errors, window) {
     console.log(errors);
     console.log()
 

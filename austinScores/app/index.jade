@@ -1,0 +1,175 @@
+doctype html
+
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title
+      | Austin Pinball Scores
+    link(rel="stylesheet" href="style.css" type="text/css")
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css")
+
+  body
+    script(src="vendor.js")
+    script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+    script(src="pinballScores.js")
+    script(src="app.js")
+
+    header
+      h2 Austin Pinball Scores
+
+    section
+      div
+        table.table.table-bordered.table-striped
+          thead
+            tr
+              th
+              th(colspan="2")
+              th#player1ColumnHeader(colspan="5")
+                | 
+              th#player2ColumnHeader(colspan="4")
+                | 
+              th#player3ColumnHeader(colspan="4")
+                | 
+              th#player4ColumnHeader(colspan="4")
+                | 
+            tr
+              th
+              th
+                | All Average
+              th
+                | All Plays
+              th
+                | Ratio
+              th
+                | Average
+              th
+                | High
+              th
+                | Low
+              th
+                | Plays
+              th
+                | Average
+              th
+                | High
+              th
+                | Low
+              th
+                | Plays
+              th
+                | Average
+              th
+                | High
+              th
+                | Low
+              th
+                | Plays
+              th
+                | Average
+              th
+                | High
+              th
+                | Low
+              th
+                | Plays
+          tbody
+            tr
+              th.text-nowrap(scope="row")
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+            tr
+              th.text-nowrap(scope="row")
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+
+    
+    script(id="player-column-header" type="text/x-handlebars-template")
+      .dropdown
+        button.btn.btn-default.dropdown-toggle(id="{{playerIdDropdownMenu}}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+          | Choose a Player
+          span.caret
+        ul.dropdown-menu(aria-labelledby="{{playerIdDropdownMenu}}")
+          | {{#each players}}
+          li
+            a(href="#" data-value="action" data-id="{{ifpaId}}")
+              | {{playerName}}
+          | {{/each}}
+
+
+
+    script(id="score-row-template" type="text/x-handlebars-template")
+      tr
+        th
+          | {{pinName}}
+        td
+          | {{allAverage}}
+        td
+          | {{allPlays}}
+        td
+          | {{p1Ratio}}
+        td
+          | {{p1Average}}
+        td
+          | {{p1High}}
+        td
+          | {{p1Low}}
+        td
+          | {{p1Plays}}
+        td
+          | {{p2Average}}
+        td
+          | {{p2High}}
+        td
+          | {{p2Low}}
+        td
+          | {{p2Plays}}
+        td
+          | {{p3Average}}
+        td
+          | {{p3High}}
+        td
+          | {{p3Low}}
+        td
+          | {{p3Plays}}
+        td
+          | {{p4Average}}
+        td
+          | {{p4High}}
+        td
+          | {{p4Low}}
+        td
+          | {{p4Plays}}
