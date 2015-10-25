@@ -13,9 +13,9 @@
     "Sean": 22253
   },
   "pins": {
-    "Kiss": "pinballz1",
+    "Kiss": {"id": "pinballz1", "as": "Kiss (Bally)"},
     "Space Invaders": "pinballz1",
-    "TMNT": "pinballz1",
+    "TMNT": {"id": "pinballz1", "as": "Teenage Mutant Ninja Turtles"},
     "Haunted House": "pinballz1",
     "Transformers": "pinballz1",
     "Eight Ball Deluxe": "pinballz1",

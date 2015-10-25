@@ -38,6 +38,7 @@ Q()
           return reject(err);
         }
         playerAndMachineConfig = JSON.parse(String(data));
+        //console.log('loaded config: ', JSON.stringify(playerAndMachineConfig));
         resolve();
       });
     });
@@ -75,11 +76,26 @@ Q()
             return;
           }
           //console.log('game ' + gameName + ': ' + score);
-        
+          var pinName = gameName,
+              pinId = playerAndMachineConfig.pins[gameName];
+
+          if (_.isObject(playerAndMachineConfig.pins[gameName])) {
+            var pinConfig = playerAndMachineConfig.pins[gameName];
+            if (pinConfig.as) {
+              //console.log(pinName + ' => ' + pinConfig.as);
+              pinName = pinConfig.as;
+            }
+            if (pinConfig.id) {
+              pinId = pinConfig.id;
+            } else {
+              throw "missing id for " + gameName;
+            }
+          }
+
           var scoreJson = {
             playerIfpaId: playerAndMachineConfig.players[playerName],
-            pinName: gameName,
-            pinId: playerAndMachineConfig.pins[gameName],
+            pinName: pinName,
+            pinId: pinId,
             score: score,
             extraBalls: extraBalls
           };

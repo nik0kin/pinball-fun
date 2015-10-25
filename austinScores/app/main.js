@@ -100,18 +100,22 @@ $(function () {
     console.log('total loadtime: ' + (Date.now() - startTime) + 'ms');
 
     setupUI();
+    loadByUrl();
   });
 
   let setupUI = function () {
 
     let austinPlayers = [];
+    let chooseAPlayerDefault = [{playerName: 'Choose a Player', ifpaId: 99999999}];
     _.each(AUSTIN_PLAYERS, (playerName, ifpaId) => {
       austinPlayers.push({playerName, ifpaId});
     });
-    // sort Alphabetically
+    // sort Alphabetically + put "Choose a Player" at the top of the dropdown
     austinPlayers = _.sortBy(austinPlayers, (playerObj) => {
       return playerObj.playerName;
     });
+    chooseAPlayerDefault.push.apply(chooseAPlayerDefault, austinPlayers);
+    austinPlayers = chooseAPlayerDefault;
 
     let setupPlayerColumn = function (playerNumber) {
       let context = {
@@ -135,10 +139,18 @@ $(function () {
       $dropdownButton.val($(this).data('value'));
 
       let columnId = $dropdownButton.attr('id').match(/player(\d)DropdownMenu/)[1];
-      selectedPlayers[columnId] = $(this).attr('data-id');
+      let newSelectedPlayer = $(this).attr('data-id');
+
+      if (newSelectedPlayer === "99999999") {
+        selectedPlayers[columnId] = undefined;
+      } else {
+        selectedPlayers[columnId] = newSelectedPlayer;
+      }
+
       console.log('player '+columnId+': ', selectedPlayers[columnId])
 
       rebuildTableRows();
+      updateUrl();
     });
   };
 
@@ -151,6 +163,7 @@ $(function () {
     let player1PinAverageRatios = {}; // compared vs all average
     let player1PinAverageRatiosOrdered;
 
+    $('tbody').html('');
     if (!player1) {
       return;
     }
@@ -167,7 +180,6 @@ $(function () {
     });
     player1PinAverageRatiosOrdered = _.map(_.sortByOrder(player1PinAverageRatiosOrdered, ['ratio'], ['asc'])).reverse();
 
-    $('tbody').html('');
     _.each(player1PinAverageRatiosOrdered, (ratioObj) => {
       let pinName = ratioObj.pinName;
 
@@ -219,4 +231,52 @@ $(function () {
     });
 
   };
+
+  let updateUrl = function () {
+    var urlString = '/?';
+
+    let buildUrlString = function (playerNum) {
+      if (selectedPlayers[playerNum]) {
+        if (urlString.length > 2) {
+          urlString += '&';
+        }
+        urlString += 'p'+playerNum+'='+selectedPlayers[playerNum];
+      }
+    };
+
+    buildUrlString(1);
+    buildUrlString(2);
+    buildUrlString(3);
+    buildUrlString(4);
+
+    window.history.pushState('', '', urlString);
+  };
+
+  let loadByUrl = function () {
+    let p1 = getUrlParameter('p1');
+    let p2 = getUrlParameter('p2');
+    let p3 = getUrlParameter('p3');
+    let p4 = getUrlParameter('p4');
+
+    if (!p1 && !p2 && !p3 && !p4) {
+      return;
+    }
+
+    let setPlayer = function (playerNum, playerId) {
+      if (!playerId || !AUSTIN_PLAYERS[playerId]) {
+        return;
+      }
+
+      selectedPlayers[playerNum] = playerId;
+      $('#player'+playerNum+'DropdownMenu').html(AUSTIN_PLAYERS[playerId] + ' <span class="caret"></span>');
+    };
+
+    setPlayer(1, p1);
+    setPlayer(2, p2);
+    setPlayer(3, p3);
+    setPlayer(4, p4);
+
+    rebuildTableRows();
+  };
+
 });

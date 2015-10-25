@@ -13,19 +13,18 @@
     "Langel": 36196
   },
   "pins": {
-    "South Park": "pinballz1",
-    "Space Invaders": "pinballz1",
-    "Star Trek (Stern)": "pinballz1",
-    "Lord of the Rings": "pinballz1",
-    "Walking Dead": "pinballz1",
-    "Bride of Pinbot": "pinballz1",
-    "Pinbot": "pinballz1",
-    "Funhouse": "pinballz1",
-    "Guns & Roses": "pinballz1",
-    "Avatar": "pinballz1",
-    "Street Fighter 2": "pinballz1",
+    "Medieval Madness": "pinballz1",
+    "Lost World": "pinballz1",
+    "Space Jam": "pinballz1",
+    "Shrek": "pinballz1",
+    "Diner": "pinballz1",
+    "Twilight Zone": "pinballz1",
+    "Apollo 13": "pinballz1",
+    "Walking Dead": {"id": "pinballz1", "as": "The Walking Dead"},
     "Johnny Mnemonic": "pinballz1",
-    "Metallica": "pinballz1",
-    "Terminator 2": "pinballz1"
+    "Creature From the Black Lagoon": "pinballz1",
+    "Haunted House": "pinballz1",
+    "Tron": "pinballz1",
+    "Metallica": "pinballz1"
   }
 }

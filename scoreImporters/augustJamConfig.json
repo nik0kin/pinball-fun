@@ -30,7 +30,7 @@
     "Lord of the Rings": "pinballz1",
     "Walking Dead": "pinballz1",
     "Bride of Pinbot": "pinballz1",
-    "Pinbot": "pinballz1",
+    "Pinbot": {"id": "pinballz1", "as": "Pin*Bot"},
     "Funhouse": "pinballz1",
     "Guns & Roses": "pinballz1",
     "Avatar": "pinballz1",

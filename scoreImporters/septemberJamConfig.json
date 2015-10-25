@@ -28,7 +28,7 @@
     "Teenage Mutant Ninja Turtles": "pinballz1",
     "Lost World": "pinballz1",
     "Fireball 2": "pinballz1",
-    "LOTR": "pinballz1",
+    "LOTR": {"id": "pinballz1", "as": "Lord of the Rings"},
     "Playboy": "pinballz1",
     "Jack*Bot": "pinballz1",
     "The Walking Dead": "pinballz1",
