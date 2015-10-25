@@ -80,7 +80,7 @@ html(lang="en")
         ul.dropdown-menu(aria-labelledby="{{playerIdDropdownMenu}}")
           | {{#each players}}
           li
-            a(href="#" data-value="action" data-id="{{ifpaId}}")
+            a(data-value="action" data-id="{{ifpaId}}")
               | {{playerName}}
           | {{/each}}
 

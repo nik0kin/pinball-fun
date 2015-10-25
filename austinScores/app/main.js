@@ -249,7 +249,7 @@ $(function () {
     buildUrlString(3);
     buildUrlString(4);
 
-    window.history.pushState('', '', urlString);
+    window.location.hash = urlString;
   };
 
   let loadByUrl = function () {
