@@ -2,7 +2,7 @@
 
 rm -rf dist/; mkdir dist/
 
-cp index.html dist/
+cp index.html favicon.ico dist/
 
 ./buildRankings.sh
 cp -r austinRankings dist/rankings
