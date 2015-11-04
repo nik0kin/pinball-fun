@@ -1,24 +1,17 @@
 
-tbody {
-  //height: 1000px;
+body {
+  font-family: 'Dosis', sans-serif !important;
 }
 
-/*// http://paletton.com/#uid=74k1k0kllllaFw0g0qFqFg0w0aF
-$color1Light1: #8B7AAE;
-$color1Light2: #655091;
-$color1Primary: #452F74;
+.title {
+  font-weight:  700;
+  margin-left: 30px;
+  font-size: 42px;
+}
 
-$color2Light1: #FFAAAA;
-$color2Light2: #D46A6A;
-$color2Primary: #AA3939;
-
-$color3Light1: #88CC88;
-$color3Light2: #55AA55;
-$color3Primary: #2D882D;
-
-$color4Light1: #FFF3AA;
-$color4Light2: #D4C66A;
-$color4Primary: #AA9A39;*/
+.player-name {
+  font-size: 16px !important;
+}
 
 // http://paletton.com/#uid=73+1k0k7-pl0O+g2+Gzaoggfy8t
 $color1Light1: #71718D;

@@ -15,15 +15,17 @@ exports.initAuthedSheet = function (googleSheetsId) {
 }
 
 // returns an array of the 3 week sheets 
-exports.getRawScoresQ = function (sheet, positionOfTableTop) {
+exports.getRawScoresQ = function (sheet, positionOfTableTop, numOfSheetsToRead) {
   var playersNum = 22;
   var gamesNum = 5;
-  return Q.all([
-      getRawSheetQ(sheet, 1, playersNum, gamesNum, positionOfTableTop),
-      getRawSheetQ(sheet, 2, playersNum, gamesNum, positionOfTableTop),
-      getRawSheetQ(sheet, 3, playersNum, gamesNum, positionOfTableTop)
-    ]);
 
+  var promises = [];
+  _.times(numOfSheetsToRead, function (i) {
+    var sheetTabNum = i + 1;
+    promises.push(getRawSheetQ(sheet, sheetTabNum, playersNum, gamesNum, positionOfTableTop));
+  });
+
+  return Q.all(promises);
 };
 
 var getRawSheetQ = function (gSheet, sheetNum, playersNum, gamesNum, positionOfTableTop) {

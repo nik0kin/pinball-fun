@@ -16,7 +16,7 @@ html(lang="en")
     script(src="app.js")
 
     header
-      h2 Austin Pinball Scores
+      h1.title Austin Pinball Scores
 
     section
       div
@@ -74,7 +74,7 @@ html(lang="en")
 
     script(id="player-column-header" type="text/x-handlebars-template")
       .dropdown
-        button.btn.btn-default.dropdown-toggle(id="{{playerIdDropdownMenu}}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+        button.btn.btn-default.dropdown-toggle.player-name(id="{{playerIdDropdownMenu}}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
           | Choose a Player
           span.caret
         ul.dropdown-menu(aria-labelledby="{{playerIdDropdownMenu}}")

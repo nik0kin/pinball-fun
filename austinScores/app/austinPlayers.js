@@ -29,5 +29,6 @@ let AUSTIN_PLAYERS = {
   38403: 'Nick Fowler',
   29841: 'Zach Schroeder',
   37826: 'Emily Hobbs',
+  39241: 'Joel Pepper',
   14860: 'Gabe Jones'
 };

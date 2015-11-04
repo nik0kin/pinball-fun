@@ -1,3 +1,5 @@
+// Tuesday Jam Score Importer
+//
 // node ./thisScript <Google Sheets Id> <Description of Data> <Save Path for JSON> <Amount of Extra Balls> <player & pin config json path> <array of games per week>
 
 var Q = require('q'),
@@ -25,7 +27,7 @@ Q()
   })
 // Import 3 weeks of scores into json
   .then(function (gSheet) {
-    return helper.getRawScoresQ(gSheet, positionOfTableTop);
+    return helper.getRawScoresQ(gSheet, positionOfTableTop, gamesTotal.length);
   })
 // Prompts user for ifpaId for each player
 //   (future: have name to ifpa dictionary file, and prompt to use the dictionary value or enter a new ifpa (and maybe then update the name to ifpa dictionary))
@@ -72,7 +74,9 @@ Q()
         //console.log(playerName);
         _.each(gamesNamesArray[scoreSheetIndex], function (gameName, g) {
           var score = rawScoreSheet[playerColumn + 1 + 2 * g][playerRow];
-          if (!score) {
+          if (!_.isNumber(score) || score <= 1) {
+            // 0 = no show
+            // 1 = disqualify
             return;
           }
           //console.log('game ' + gameName + ': ' + score);

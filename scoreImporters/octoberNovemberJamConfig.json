@@ -1,0 +1,27 @@
+{
+  "players": {
+    "Sven": 10087,
+    "Mark": 25752,
+    "Thomas": 27483,
+    "Jon": 10916,
+    "Ray": 22252,
+    "Paul": 37540,
+    "Kirk": 15293,
+    "Brandon": 23950,
+    "Nik P": 27482,
+    "Jason N": 35434,
+    "Jessica": 22613,
+    "Amit": 37544,
+    "Matt MacDougall": 37542,
+    "Zach": 29841,
+    "Emily": 37826,
+    "Gabe": 14860
+  },
+  "pins": {
+    "EatPM": {"id": "pinballz1", "as": "Elvira and the Party Monsters"},
+    "Funhouse": "pinballz1",
+    "Goldeneye": "pinballz1",
+    "Jurassic Park": "pinballz1",
+    "Kiss(Stern)": {"id": "pinballz1", "as": "Kiss (Stern)"}
+  }
+}
