@@ -9,7 +9,10 @@ exports.initAuthedSheet = function (googleSheetsId) {
 
   return Q.promise(function (resolve, reject) {
     sheet.useServiceAccountAuth(authAccountInfo, function (err) {
-      resolve(sheet);
+      sheet.getInfo(function (err, info) {
+        // console.log('spreadsheet info', info);
+        resolve(sheet);
+      });
     })
   });
 }
@@ -30,6 +33,7 @@ exports.getRawScoresQ = function (sheet, positionOfTableTop, numOfSheetsToRead) 
 
 var getRawSheetQ = function (gSheet, sheetNum, playersNum, gamesNum, positionOfTableTop) {
   return Q.promise(function (resolve, reject) {
+
     gSheet.getCells(sheetNum, {
         'min-row': positionOfTableTop,
         'max-row': positionOfTableTop + playersNum + 1,

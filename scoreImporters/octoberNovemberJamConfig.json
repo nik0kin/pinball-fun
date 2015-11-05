@@ -22,6 +22,11 @@
     "Funhouse": "pinballz1",
     "Goldeneye": "pinballz1",
     "Jurassic Park": "pinballz1",
-    "Kiss(Stern)": {"id": "pinballz1", "as": "Kiss (Stern)"}
+    "Kiss(Stern)": {"id": "pinballz1", "as": "Kiss (Stern)"},
+    "Avatar": "pinballz1",
+    "Bram Stoker's Dracula": "pinballz1",
+    "Teenage Mutant Ninja Turtles": "pinballz1",
+    "Sopranos": "pinballz1",
+    "Meteor": "pinballz1"
   }
 }
