@@ -21,3 +21,18 @@ var getUrlParameter = function (sParam) {
     }
   }
 };
+
+// percentile: a number between 0 and 1.0. .5 would be 50% or the median (I think)
+// based on https://github.com/Delapouite/lodash.math/blob/master/lodash.math.js
+var findPercentile = function (array, percentile) {
+  let index = percentile * array.length;
+  let result;
+
+  array = _.sortBy(array, _.identity);
+  if (Math.floor(index) == index) {
+    result = (array[index-1] + array[index])/2;
+  } else {
+    result = array[Math.floor(index)];
+  }
+  return result;
+};

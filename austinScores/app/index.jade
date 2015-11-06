@@ -25,6 +25,7 @@ html(lang="en")
             tr
               th
               th(colspan="2")
+                | All Players
               th#player1ColumnHeader.player1(colspan="5")
               th#player2ColumnHeader.player2(colspan="4")
               th#player3ColumnHeader.player3(colspan="4")
@@ -32,13 +33,13 @@ html(lang="en")
             tr
               th
               th
-                | All Average
+                | Median
               th
-                | All Plays
+                | Plays
               th.player1
                 | Ratio
               th.player1
-                | Average
+                | Median
               th.player1
                 | High
               th.player1
@@ -46,7 +47,7 @@ html(lang="en")
               th.player1
                 | Plays
               th.player2
-                | Average
+                | Median
               th.player2
                 | High
               th.player2
@@ -54,7 +55,7 @@ html(lang="en")
               th.player2
                 | Plays
               th.player3
-                | Average
+                | Median
               th.player3
                 | High
               th.player3
@@ -62,7 +63,7 @@ html(lang="en")
               th.player3
                 | Plays
               th.player4
-                | Average
+                | Median
               th.player4
                 | High
               th.player4
@@ -91,13 +92,14 @@ html(lang="en")
         th
           | {{pinName}}
         td
-          | {{allAverage}}
+          span(title="{{allQuartilesString}}")
+            | {{allMedian}}
         td
           | {{allPlays}}
         td.player1(class="{{p1GoodOrBad}}")
           | {{p1Ratio}}
         td.player1(class="{{p1GoodOrBad}}")
-          | {{p1Average}}
+          | {{p1Median}}
         td.player1(class="{{p1GoodOrBad}}")
           | {{p1High}}
         td.player1(class="{{p1GoodOrBad}}")
@@ -105,7 +107,7 @@ html(lang="en")
         td.player1
           | {{p1Plays}}
         td.player2(class="{{p2GoodOrBad}}")
-          | {{p2Average}}
+          | {{p2Median}}
         td.player2(class="{{p2GoodOrBad}}")
           | {{p2High}}
         td.player2(class="{{p2GoodOrBad}}")
@@ -113,7 +115,7 @@ html(lang="en")
         td.player2
           | {{p2Plays}}
         td.player3(class="{{p3GoodOrBad}}")
-          | {{p3Average}}
+          | {{p3Median}}
         td.player3(class="{{p3GoodOrBad}}")
           | {{p3High}}
         td.player3(class="{{p3GoodOrBad}}")
@@ -121,7 +123,7 @@ html(lang="en")
         td.player3
           | {{p3Plays}}
         td.player4(class="{{p4GoodOrBad}}")
-          | {{p4Average}}
+          | {{p4Median}}
         td.player4(class="{{p4GoodOrBad}}")
           | {{p4High}}
         td.player4(class="{{p4GoodOrBad}}")
