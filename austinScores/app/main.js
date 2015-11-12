@@ -133,6 +133,7 @@ $(function () {
   });
 
   let setupUI = function () {
+    setupTotals();
 
     let austinPlayers = [];
     let chooseAPlayerDefault = [{playerName: 'Choose a Player', ifpaId: 99999999}];
@@ -181,6 +182,13 @@ $(function () {
       rebuildTableRows();
       updateUrl();
     });
+  };
+
+  let setupTotals = function () {
+    $('.totalScores').html(numberWithCommas(allScoresArray.length));
+    $('.totalPins').html(pinsArray.length);
+    $('.totalPlayers').html(_.keys(AUSTIN_PLAYERS).length);
+    $('.totalEvents').html(RAW_PINBALL_SCORES.length - 1);
   };
 
   let rebuildTableRows = function () {

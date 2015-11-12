@@ -1,0 +1,127 @@
+{
+  "players": {
+    "Nikolas Poklitar": {
+      "batcityLeagueNumber": 17,
+      "ifpaId": 27482
+    },
+    "Brian Dols": {
+      "batcityLeagueNumber": 10,
+      "ifpaId": 14223
+    },
+    "Jon Drew": {
+      "batcityLeagueNumber": 1,
+      "ifpaId": 10916
+    },
+    "Mark Meserve": {
+      "batcityLeagueNumber": 8,
+      "ifpaId": 25752
+    },
+    "Colin MacAlpine": {
+      "batcityLeagueNumber": 27,
+      "ifpaId": 10903
+    },
+    "Garrett Hays": {
+      "batcityLeagueNumber": 26,
+      "ifpaId": 15300
+    },
+    "Sven Johnson": {
+      "batcityLeagueNumber": 18,
+      "ifpaId": 10087
+    },
+    "Thomas Law": {
+      "batcityLeagueNumber": 2,
+      "ifpaId": 27483
+    },
+    "Rachel Morris": {
+      "batcityLeagueNumber": 4,
+      "ifpaId": 25750
+    },
+    "Jesse Bodell": {
+      "batcityLeagueNumber": 15,
+      "ifpaId": 23218
+    },
+    "Charles Watson": {
+      "batcityLeagueNumber": 5,
+      "ifpaId": 5079
+    },
+    "Amanda Boudreault": {
+      "batcityLeagueNumber": 23,
+      "ifpaId": 16350
+    },
+    "Graeme MacAlpine": {
+      "batcityLeagueNumber": 24,
+      "ifpaId": 24030
+    },
+    "Gavin MacAlpine": {
+      "batcityLeagueNumber": 25,
+      "ifpaId": 24031
+    },
+    "Wenchy": {
+      "batcityLeagueNumber": 29,
+      "ifpaId": 34045
+    },
+    "Jason Higgins": {
+      "batcityLeagueNumber": 28,
+      "ifpaId": 13526
+    },
+    "Shaggy": {
+      "batcityLeagueNumber": 30,
+      "ifpaId": 37698
+    },
+    "John Fedrick": {
+      "batcityLeagueNumber": 3,
+      "ifpaId": 22617
+    },
+    "Zach Palmer": {
+      "batcityLeagueNumber": 6,
+      "ifpaId": 14203
+    },
+    "Devin O'Brien": {
+      "batcityLeagueNumber": 7,
+      "ifpaId": 24241
+    },
+    "Sean Starke": {
+      "batcityLeagueNumber": 9,
+      "ifpaId": 22253
+    },
+    "Keri Wing": {
+      "batcityLeagueNumber": 11,
+      "ifpaId": 20345
+    },
+    "Doreen Esparza": {
+      "batcityLeagueNumber": 12,
+      "ifpaId": 27057
+    },
+    "Ray Ford": {
+      "batcityLeagueNumber": 13,
+      "ifpaId": 22252
+    },
+    "Carl Steeves": {
+      "batcityLeagueNumber": 14,
+      "ifpaId": 35396
+    },
+    "Mitch Burton": {
+      "batcityLeagueNumber": 16,
+      "ifpaId": 32799
+    },
+    "Emily Hobbs": {
+      "batcityLeagueNumber": 33,
+      "ifpaId": 37826
+    }
+  },
+  "pinId": "buffaloBilliards1",
+  "pins": {
+    "Twilight Zone": {},
+    "TheWalkingDead": {"as": "Walking Dead"},
+    "Metallica": {},
+    "STTNG": {"as": "Star Trek: The Next Generation"},
+    "Demolition Man": {},
+    "PiratesOTC": {"as": "Pirates of the Caribbean"},
+    "Congo": {},
+    "RevengeFromM": {"as": "Revenge From Mars"},
+    "TheAddamsFam": {"as": "The Addams Family"},
+    "Star Trek": {"as": "Star Trek (Stern)"},
+    "KISS": {"as": "Kiss (Stern)"},
+    "BSDracula": {"as": "Bram Stoker's Dracula"}
+  }
+}

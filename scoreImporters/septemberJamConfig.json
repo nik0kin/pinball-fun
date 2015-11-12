@@ -21,7 +21,7 @@
     "Gabe": 14860
   },
   "pins": {
-    "Addams Family": "pinballz1",
+    "Addams Family": {"id": "pinballz1", "as": "The Addams Family"},
     "Centaur II": "pinballz1",
     "Tales of the Arabian Nights": "pinballz1",
     "Haunted House": "pinballz1",

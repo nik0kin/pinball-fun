@@ -27,6 +27,11 @@
     "Bram Stoker's Dracula": "pinballz1",
     "Teenage Mutant Ninja Turtles": "pinballz1",
     "Sopranos": "pinballz1",
-    "Meteor": "pinballz1"
+    "Meteor": "pinballz1",
+    "Grand Lizard": "pinballz1",
+    "El Dorado": {"id": "pinballz1", "as": "El Dorado City of Gold"},
+    "Monster Bash": "pinballz1",
+    "Lost World": "pinballz1",
+    "Star Wars Episode 1": "pinballz1"
   }
 }

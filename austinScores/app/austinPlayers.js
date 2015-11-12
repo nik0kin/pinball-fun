@@ -30,5 +30,21 @@ let AUSTIN_PLAYERS = {
   29841: 'Zach Schroeder',
   37826: 'Emily Hobbs',
   39241: 'Joel Pepper',
-  14860: 'Gabe Jones'
+  14860: 'Gabe Jones',
+
+  14223: "Brian Dols",
+  10903: "Colin MacAlpine",
+  15300: "Garrett Hays",
+  25750: "Rachel Morris",
+  23218: "Jesse Bodell",
+  5079: "Charles Watson",
+  24030: "Graeme MacAlpine",
+  24031: "Gavin MacAlpine",
+  37698: "Shaggy",
+  22617: "John Fedrick",
+  14203: "Zach Palmer",
+  24241: "Devin O'Brien",
+  20345: "Keri Wing",
+  35396: "Carl Steeves",
+  32799: "Mitch Burton",
 };
