@@ -3,14 +3,46 @@ body {
   font-family: 'Dosis', sans-serif !important;
 }
 
+header {
+  margin-top: 15px;
+}
+
 .title {
   font-weight:  700;
-  margin-left: 30px;
-  font-size: 42px;
+  font-size: 48px;
+
+  margin-left: 15px;
+  //margin-bottom: 15px;
+}
+
+#settings-accordion {
+
+  .panel-heading {
+    padding-top: 5px;
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+    padding-bottom: 5px;
+  }
+
+  .panel-heading > .panel-title > a {
+    font-size: smaller;
+  }
+
+  .dropdown-menu {
+    // font-size: smaller;
+  }
+}
+
+.form-inline .dropdown {
+  display: inline-block;
+}
+
+.dropdown .caret {
+  margin-left: 4px !important;
 }
 
 .player-name {
-  font-size: 16px !important;
+  font-size: 18px !important;
 }
 
 .bottomDiv {

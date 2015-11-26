@@ -163,7 +163,7 @@ $(function () {
     setupPlayerColumn(4);
 
     $('.dropdown-toggle').dropdown();
-    $(".dropdown-menu li a").click(function(){
+    $(".player-header .dropdown-menu li a").click(function(){
       let $dropdownButton = $(this).parents(".dropdown").find('.btn');
       $dropdownButton.html($(this).text() + ' <span class="caret"></span>');
       $dropdownButton.val($(this).data('value'));
@@ -181,6 +181,10 @@ $(function () {
 
       rebuildTableRows();
       updateUrl();
+    });
+
+    $('#filtersHeading').click(() => {
+      $('#filtersCollapse').collapse('toggle');
     });
   };
 
