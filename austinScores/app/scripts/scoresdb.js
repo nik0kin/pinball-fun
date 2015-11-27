@@ -1,7 +1,10 @@
 import {AUSTIN_PLAYERS} from "./austinPlayers";
+import {PINS_INFO, mapToIpdbId} from "./pins";
 import {getUrlParameter, findPercentile, numberWithCommas} from "./utils";
 
 const PERCENTILES = [.25, .5, .75];
+
+const DEBUG = true;
 
 let playerColumnHeaderTemplate;
 let pinballRowTemplate;
@@ -55,10 +58,12 @@ export var init = function () {
     scoresByPin[score.pinName].push(score);
   });
 
-  console.log(pinsArray.length + ' pins');
-  console.log(playersArray.length + ' players');
-  console.log('pinsArray', pinsArray);
-  console.log('playersArray', playersArray);
+  if (DEBUG) {
+    console.log(pinsArray.length + ' pins');
+    console.log(playersArray.length + ' players');
+    console.log('pinsArray', pinsArray);
+    console.log('playersArray', playersArray);
+  }
 
   generateAllStatistics();
 
@@ -143,14 +148,16 @@ let generateAllStatistics = function () {
 
   });
 
-  console.log('allAveragesByPin', allAveragesByPin);
-  console.log('allPlaysByPin', allPlaysByPin);
+  if (DEBUG) {
+    console.log('allAveragesByPin', allAveragesByPin);
+    console.log('allPlaysByPin', allPlaysByPin);
 
-  console.log('playerAverageScoreByPin', playerAverageScoreByPin);
-  console.log('playerLowScoreByPin', playerLowScoreByPin);
-  console.log('playerHighScoreByPin', playerHighScoreByPin);
-  console.log('playerPlaysByPin', playerPlaysByPin);
-  console.log('playerPercentilesByPin', playerPercentilesByPin);
+    console.log('playerAverageScoreByPin', playerAverageScoreByPin);
+    console.log('playerLowScoreByPin', playerLowScoreByPin);
+    console.log('playerHighScoreByPin', playerHighScoreByPin);
+    console.log('playerPlaysByPin', playerPlaysByPin);
+    console.log('playerPercentilesByPin', playerPercentilesByPin);
+  }
 };
 
 let setupUI = function () {
@@ -198,7 +205,7 @@ let setupUI = function () {
       selectedPlayers[columnId] = newSelectedPlayer;
     }
 
-    console.log('player '+columnId+': ', selectedPlayers[columnId])
+    //console.log('player '+columnId+': ', selectedPlayers[columnId])
 
     rebuildTableRows();
     updateUrl();
@@ -281,6 +288,8 @@ let rebuildTableRows = function () {
 
   _.each(player1PinMedianRatiosOrdered, (ratioObj) => {
     let pinName = ratioObj.pinName;
+    let pinIPDBId = mapToIpdbId[pinName];
+    let pinInfo = PINS_INFO[pinIPDBId] || {};
 
     if (_.isNaN(ratioObj.ratio)) {
       return;
@@ -300,12 +309,40 @@ let rebuildTableRows = function () {
     allQuartilesString += '\nBottom Quartile: ';
     allQuartilesString += addCommas(allPercentilesByPin[pinName][.25]);
     let context = {
-      pinName: pinName,
+      pinName: pinInfo.name || pinName,
+      pinMake: pinInfo.make,
+      pinYear: pinInfo.year,
+
       allMedian: addCommas(allPercentilesByPin[pinName][.5]),
       allQuartilesString,
       allAverage: addCommas(allAveragesByPin[pinName]),
       allPlays: addCommas(allPlaysByPin[pinName])
     };
+
+    if (pinInfo.make) {
+      let pinLabelClass;
+      switch (pinInfo.make) {
+        case 'Gottlieb':
+          pinLabelClass = 'label-gottlieb';
+          break;
+        case 'Williams':
+          pinLabelClass = 'label-williams';
+          break;
+        case 'Bally':
+          pinLabelClass = 'label-bally';
+          break;
+        case 'Data East':
+          pinLabelClass = 'label-dataeast';
+          break;
+        case 'Sega':
+          pinLabelClass = 'label-sega';
+          break;
+        case 'Stern':
+          pinLabelClass = 'label-stern';
+          break;
+      }
+      context.pinLabelClass = pinLabelClass;
+    }
 
     let fillContext = function (num, ifpaId) {
       context['p'+num+'Average'] = addCommas(playerAverageScoreByPin[ifpaId][pinName]);

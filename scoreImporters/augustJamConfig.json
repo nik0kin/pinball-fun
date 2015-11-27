@@ -28,7 +28,7 @@
     "Space Invaders": "pinballz1",
     "Star Trek (Stern)": "pinballz1",
     "Lord of the Rings": "pinballz1",
-    "Walking Dead": "pinballz1",
+    "Walking Dead": {"id": "pinballz1", "as": "The Walking Dead"},
     "Bride of Pinbot": "pinballz1",
     "Pinbot": {"id": "pinballz1", "as": "Pin*Bot"},
     "Funhouse": "pinballz1",

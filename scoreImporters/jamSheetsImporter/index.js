@@ -12,7 +12,7 @@ var helper = require('./helper');
 var googleSheetsId = process.argv[2],
     dataName = process.argv[3],
     savePath = path.join(process.cwd(), process.argv[4], (dataName + '.json').replace(/ /g, '_')),
-    extraBalls = process.argv[5],
+    extraBalls = Number(process.argv[5]),
     playerAndMachineConfigFile = path.join(process.cwd(), process.argv[6]),
     gamesTotal = JSON.parse(process.argv[7]); // an array of the amount of games played each week. eg [4,5,5]
 

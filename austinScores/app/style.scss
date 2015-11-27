@@ -15,6 +15,34 @@ header {
   //margin-bottom: 15px;
 }
 
+th.pin-description {
+  font-size: 18px;
+
+  .label {
+    font-size: 85%;
+  }
+}
+
+$sternBlue: #337ab7;
+.label-stern {
+  background-color: $sternBlue;
+}
+.label-sega {
+  background-color: $sternBlue;
+}
+.label-dataeast {
+  background-color: $sternBlue;
+}
+.label-williams {
+  background-color: #f0ad4e;
+}
+.label-bally {
+  background-color: #d9534f;
+}
+.label-gottlieb {
+  background-color: #5cb85c;
+}
+
 #settings-accordion {
 
   .panel-heading {

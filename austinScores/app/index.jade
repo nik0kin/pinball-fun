@@ -151,8 +151,11 @@ html(lang="en")
 
     script(id="score-row-template" type="text/x-handlebars-template")
       tr
-        th
-          | {{pinName}}
+        th.pin-description
+          span.pin-name {{pinName}}
+          br
+          span.label(class="{{pinLabelClass}}") {{pinMake}}
+          span.label.label-info {{pinYear}}
         td
           span(title="{{allQuartilesString}}")
             | {{allMedian}}
