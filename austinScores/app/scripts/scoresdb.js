@@ -204,14 +204,22 @@ let setupUI = function () {
     updateUrl();
   });
 
-  $('#extraBallFilterDropdown .dropdown-menu li a').click(function () {
-    let $dropdownButton = $(this).parents(".dropdown").find('.btn');
-    let text = $(this).text();
-    let value = $(this).data('value');
-    $dropdownButton.html(text + ' <span class="caret"></span>');
-    $dropdownButton.val(value);
+  let initDropdown = function (dropdownElementId, callback) {
+    $('#'+dropdownElementId+' .dropdown-menu li a').click(function () {
+      let $dropdownButton = $(this).parents(".dropdown").find('.btn');
+      let text = $(this).text();
+      let value = $(this).data('value');
+      $dropdownButton.html(text + ' <span class="caret"></span>');
+      $dropdownButton.val(value);
 
-    var filterValue;
+      if (typeof(callback) === 'function') {
+        callback(text, value);
+      }
+    });
+  };
+
+  initDropdown('extraBallFilterDropdown', function (text, value) {
+    let filterValue;
     if (text === 'Any') {
       filterValue = -1;
     } else {
@@ -228,8 +236,13 @@ let setupUI = function () {
     rebuildTableRows();
   });
 
-  $('#filtersHeading').click(() => {
-    $('#filtersCollapse').collapse('toggle');
+  initDropdown('playerColumnsDropdown', function (text, value) {
+    showPlayerColumns(Number(text));
+  });
+
+  $('#settings-accordion .panel-heading').click(function () {
+    let collapseElementId = $(this).find('.panel-title > a').attr('aria-controls');
+    $('#'+collapseElementId).collapse('toggle');
   });
 };
 
@@ -333,6 +346,7 @@ let rebuildTableRows = function () {
     $('tbody').append(html);
   });
 
+  showPlayerColumns(shownPlayerColumns);
 };
 
 let updateUrl = function () {
@@ -381,3 +395,31 @@ let loadByUrl = function () {
 
   rebuildTableRows();
 };
+
+let shownPlayerColumns = 4;
+let showPlayerColumns = function (playerNumber) {
+  if (showPlayerColumns === playerNumber) {
+    return;
+  }
+
+  _.times(4, (playerNum) => {
+    playerNum++; // account for playerNum starting at 0
+
+    if (playerNumber < playerNum) {
+      hidePlayerColumn(playerNum);
+    } else {
+      showPlayerColumn(playerNum);
+    }
+  });
+
+  shownPlayerColumns = playerNumber;
+};
+
+let hidePlayerColumn = function (playerNumber) {
+  $('.player' + playerNumber).hide();
+};
+
+let showPlayerColumn = function (playerNumber) {
+  $('.player' + playerNumber).show();
+};
+

@@ -24,7 +24,7 @@ html(lang="en")
             #filtersHeading.panel-heading(role='tab')
               h4.panel-title
                 a(role='button', data-toggle='collapse', data-parent='#accordion', href='#filtersCollapse', aria-expanded='false', aria-controls='filtersCollapse')
-                  | Filters
+                  | Score Filters
             #filtersCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='filtersHeading')
               .panel-body
                 form.form-inline
@@ -41,6 +41,28 @@ html(lang="en")
                           a 0
                         li
                           a 1
+            #settingsHeading.panel-heading(role='tab')
+              h4.panel-title
+                a(role='button', data-toggle='collapse', data-parent='#accordion', href='#settingsCollapse', aria-expanded='false', aria-controls='settingsCollapse')
+                  | Settings
+            #settingsCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='settingsHeading')
+              .panel-body
+                form.form-inline
+                  .form-group
+                    label(for='playerColumnsDropdownButton') Player Columns: &nbsp;
+                    #playerColumnsDropdown.dropdown
+                      button#playerColumnsDropdownButton.btn.btn-sm.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                        | 4
+                        span.caret
+                      ul.dropdown-menu(aria-labelledby='playerColumnsDropdownButton')
+                        li
+                          a 1
+                        li
+                          a 2
+                        li
+                          a 3
+                        li
+                          a 4
 
 
 
