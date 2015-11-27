@@ -1,11 +1,11 @@
 // http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
-var numberWithCommas = function (x) {
+export var numberWithCommas = function (x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 // modified from
 //http://stackoverflow.com/questions/19491336/get-url-parameter-jquery
-var getUrlParameter = function (sParam) {
+export var getUrlParameter = function (sParam) {
   var sPageURL;
   if (window.location.hash) {
     sPageURL = window.location.hash.substring(3);  // skipping "#/?"
@@ -24,7 +24,7 @@ var getUrlParameter = function (sParam) {
 
 // percentile: a number between 0 and 1.0. .5 would be 50% or the median (I think)
 // based on https://github.com/Delapouite/lodash.math/blob/master/lodash.math.js
-var findPercentile = function (array, percentile) {
+export var findPercentile = function (array, percentile) {
   let index = percentile * array.length;
   let result;
 

@@ -1,4 +1,4 @@
-let AUSTIN_PLAYERS = {
+export var AUSTIN_PLAYERS = {
   10087: 'Sven Johnson',
   13526: 'Jason Higgins',
   37544: 'Amit Patel TX',

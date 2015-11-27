@@ -4,6 +4,7 @@ var compileSass = require('broccoli-sass'),
   pickFiles   = require('broccoli-static-compiler'),
   uglifyJs    = require('broccoli-uglify-js'),
   jade        = require('broccoli-jade'),
+  browserify = require('broccoli-browserify'),
   esTranspiler = require('broccoli-babel-transpiler'),
   env = require('broccoli-env').getEnv();
 
@@ -67,17 +68,14 @@ appLib = concatenate(appLib, {
 });
 
 /**
- * concatenate and compress all of our JavaScript files in
- * the project /app folder into a single app.js file in
- * the build assets folder
+ * transpile and browserify js files
  */
-appJs = concatenate(app, {
-  inputFiles : ['*.js'],
-  outputFile : '/app.js'
-});
 
-appJs = esTranspiler(appJs, {
-  modules: 'ignore'
+appJs = esTranspiler(app, {});
+
+appJs = browserify(appJs, {
+  entries: ['./scripts/main.js'],
+  outputFile: 'app.js'
 });
 
 //if (env === 'production') {
