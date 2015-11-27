@@ -25,7 +25,7 @@ let playerPercentilesByPin = {};
 let selectedPlayers = {};
 
 let scoreFilters = {
-  extraBall: -1,
+  extraBalls: -1,  // -1=any, 1=1, 2=2
 };
 
 export var init = function () {
@@ -85,6 +85,11 @@ let generateAllStatistics = function () {
     var totalPlaysByPlayer = {};
 
     _.each(scoresByPin[pinName], (score) => {
+      // skip score, if filters apply
+      if (scoreFilters.extraBalls !== -1 && score.extraBalls != scoreFilters.extraBalls) {
+        return;
+      }
+
       totalScore += score.score;
 
       if (!totalScoreByPlayer[score.playerIfpaId]) {
@@ -197,6 +202,30 @@ let setupUI = function () {
 
     rebuildTableRows();
     updateUrl();
+  });
+
+  $('#extraBallFilterDropdown .dropdown-menu li a').click(function () {
+    let $dropdownButton = $(this).parents(".dropdown").find('.btn');
+    let text = $(this).text();
+    let value = $(this).data('value');
+    $dropdownButton.html(text + ' <span class="caret"></span>');
+    $dropdownButton.val(value);
+
+    var filterValue;
+    if (text === 'Any') {
+      filterValue = -1;
+    } else {
+      filterValue = Number(text);
+    }
+
+    // don't recompute stats if the filter didnt change
+    if (filterValue === scoreFilters.extraBalls) {
+      return;
+    }
+    scoreFilters.extraBalls = filterValue;
+
+    generateAllStatistics();
+    rebuildTableRows();
   });
 
   $('#filtersHeading').click(() => {

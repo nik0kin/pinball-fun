@@ -29,12 +29,12 @@ html(lang="en")
               .panel-body
                 form.form-inline
                   .form-group
-                    label(for='extraBallFilterDropdown') Extra Balls: &nbsp;
-                    .dropdown
-                      button#extraBallFilterDropdown.btn.btn-sm.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                    label(for='extraBallFilterDropdownButton') Extra Balls: &nbsp;
+                    #extraBallFilterDropdown.dropdown
+                      button#extraBallFilterDropdownButton.btn.btn-sm.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
                         | Any
                         span.caret
-                      ul.dropdown-menu(aria-labelledby='extraBallFilterDropdown')
+                      ul.dropdown-menu(aria-labelledby='extraBallFilterDropdownButton')
                         li
                           a Any
                         li
