@@ -1,3 +1,11 @@
+export var addCommas = function (number) {
+  if (!number || _.isNaN(number)) {
+    return '';
+  } else {
+    return numberWithCommas(number);
+  }
+};
+
 // http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 export var numberWithCommas = function (x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -35,4 +43,11 @@ export var findPercentile = function (array, percentile) {
     result = array[Math.floor(index)];
   }
   return result;
+};
+
+// add all keys/values from objectB to objectA
+export var addPropertiesToObject = function (objectA, objectB) {
+  _.each(objectB, (value, key) => {
+    objectA[key] = value;
+  });
 };

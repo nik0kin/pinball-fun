@@ -94,7 +94,7 @@ appJs = browserify(appJs, {
 
 
 // Compile Sass to 1 css file
-appCss = compileSass([app], 'style.scss', '/style.css');
+appCss = compileSass([app], 'styles/main.scss', '/style.css');
 
 
 // Turn pinball scores json into an array with concat

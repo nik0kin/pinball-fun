@@ -1,0 +1,35 @@
+
+.form-inline .dropdown {
+  display: inline-block;
+}
+
+#settings-accordion {
+
+  .panel-heading {
+    padding-top: 5px;
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+    padding-bottom: 5px;
+  }
+
+  .panel-heading > .panel-title > a {
+    font-size: smaller;
+  }
+
+  .dropdown-menu {
+    // font-size: smaller;
+  }
+}
+
+// bootstrap default is 768px
+@media (min-width: 300px) {
+  .form-inline .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+}
+
+#settingsCollapse .form-group {
+  margin-right: 20px;
+}

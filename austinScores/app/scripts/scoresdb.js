@@ -1,6 +1,13 @@
 import {AUSTIN_PLAYERS} from "./austinPlayers";
 import {PINS_INFO, mapToIpdbId} from "./pins";
-import {getUrlParameter, findPercentile, numberWithCommas} from "./utils";
+
+import {getUrlParameter, findPercentile, addCommas} from "./utils";
+import {initDropdown} from './bootstrapUtils';
+
+import {initSettings} from './settings';
+
+
+let $s = {}; // main scope
 
 const PERCENTILES = [.25, .5, .75];
 
@@ -70,6 +77,8 @@ export var init = function () {
   console.log('total loadtime: ' + (Date.now() - startTime) + 'ms');
 
   setupUI();
+  initSettings($s);
+
   loadByUrl();
 };
 
@@ -211,20 +220,6 @@ let setupUI = function () {
     updateUrl();
   });
 
-  let initDropdown = function (dropdownElementId, callback) {
-    $('#'+dropdownElementId+' .dropdown-menu li a').click(function () {
-      let $dropdownButton = $(this).parents(".dropdown").find('.btn');
-      let text = $(this).text();
-      let value = $(this).data('value');
-      $dropdownButton.html(text + ' <span class="caret"></span>');
-      $dropdownButton.val(value);
-
-      if (typeof(callback) === 'function') {
-        callback(text, value);
-      }
-    });
-  };
-
   initDropdown('extraBallFilterDropdown', function (text, value) {
     let filterValue;
     if (text === 'Any') {
@@ -243,10 +238,6 @@ let setupUI = function () {
     rebuildTableRows();
   });
 
-  initDropdown('playerColumnsDropdown', function (text, value) {
-    showPlayerColumns(Number(text));
-  });
-
   $('#settings-accordion .panel-heading').click(function () {
     let collapseElementId = $(this).find('.panel-title > a').attr('aria-controls');
     $('#'+collapseElementId).collapse('toggle');
@@ -254,7 +245,7 @@ let setupUI = function () {
 };
 
 let setupTotals = function () {
-  $('.totalScores').html(numberWithCommas(allScoresArray.length));
+  $('.totalScores').html(addCommas(allScoresArray.length));
   $('.totalPins').html(pinsArray.length);
   $('.totalPlayers').html(_.keys(AUSTIN_PLAYERS).length);
   $('.totalEvents').html(RAW_PINBALL_SCORES.length - 1);
@@ -295,14 +286,6 @@ let rebuildTableRows = function () {
       return;
     }
 
-    let addCommas = function (scoreNumber) {
-      if (!scoreNumber || _.isNaN(scoreNumber)) {
-        return '';
-      } else {
-        return numberWithCommas(scoreNumber);
-      }
-    };
-
     let allQuartilesString = '';
     allQuartilesString += 'Top Quartile: ';
     allQuartilesString += addCommas(allPercentilesByPin[pinName][.75]);
@@ -320,27 +303,8 @@ let rebuildTableRows = function () {
     };
 
     if (pinInfo.make) {
-      let pinLabelClass;
-      switch (pinInfo.make) {
-        case 'Gottlieb':
-          pinLabelClass = 'label-gottlieb';
-          break;
-        case 'Williams':
-          pinLabelClass = 'label-williams';
-          break;
-        case 'Bally':
-          pinLabelClass = 'label-bally';
-          break;
-        case 'Data East':
-          pinLabelClass = 'label-dataeast';
-          break;
-        case 'Sega':
-          pinLabelClass = 'label-sega';
-          break;
-        case 'Stern':
-          pinLabelClass = 'label-stern';
-          break;
-      }
+      let pinMake = pinInfo.make.toLowerCase().replace(' ', '');
+      let pinLabelClass = 'label-' + pinMake;
       context.pinLabelClass = pinLabelClass;
     }
 
@@ -383,7 +347,8 @@ let rebuildTableRows = function () {
     $('tbody').append(html);
   });
 
-  showPlayerColumns(shownPlayerColumns);
+  $s.applyPlayerColumnsSetting();
+  $s.applyHideLabelsSetting();
 };
 
 let updateUrl = function () {
@@ -432,31 +397,3 @@ let loadByUrl = function () {
 
   rebuildTableRows();
 };
-
-let shownPlayerColumns = 4;
-let showPlayerColumns = function (playerNumber) {
-  if (showPlayerColumns === playerNumber) {
-    return;
-  }
-
-  _.times(4, (playerNum) => {
-    playerNum++; // account for playerNum starting at 0
-
-    if (playerNumber < playerNum) {
-      hidePlayerColumn(playerNum);
-    } else {
-      showPlayerColumn(playerNum);
-    }
-  });
-
-  shownPlayerColumns = playerNumber;
-};
-
-let hidePlayerColumn = function (playerNumber) {
-  $('.player' + playerNumber).hide();
-};
-
-let showPlayerColumn = function (playerNumber) {
-  $('.player' + playerNumber).show();
-};
-
