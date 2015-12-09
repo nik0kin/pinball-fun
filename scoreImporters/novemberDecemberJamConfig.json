@@ -1,0 +1,36 @@
+{
+  "players": {
+    "Sven": 10087,
+    "Mark M": 25752,
+    "Thomas": 27483,
+    "Ray": 22252,
+    "Paul": 37540,
+    "Kirk": 15293,
+    "Brandon": 23950,
+    "Nik": 27482,
+    "Jason N": 35434,
+    "Jason H": 13526,
+    "Amit": 37544,
+    "Matt M": 37542,
+    "Emily": 37826,
+    "Portia": 28310,
+    "Mark B": 27484 
+  },
+  "pins": {
+    "Congo": "pinballz1",
+    "POTC": {"id": "pinballz1", "as": "Pirates of the Caribbean"},
+    "Banzai Run": "pinballz1",
+    "Twilight Zone": "pinballz1",
+    "Iron Man": "pinballz1",
+    "Meteor": "pinballz1",
+    "Monopoly": "pinballz1",
+    "Scared Stiff": "pinballz1",
+    "Kiss (Bally)": "pinballz1",
+    "Grand Lizard": "pinballz1",
+    "Buck Rodgers": {"id": "pinballz1", "as": "Buck Rogers"},
+    "Sorcerer": "pinballz1",
+    "Batman: Dark Knight": {"id": "pinballz1", "as": "Dark Knight"},
+    "Fireball Classic": "pinballz1",
+    "High Roller Casino": "pinballz1"
+  }
+}

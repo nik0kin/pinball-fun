@@ -304,7 +304,42 @@ export var PINS_INFO = {
     name: 'Dirty Harry',
     make: 'Williams',
     year: 1995
-  }, 
+  },
+  853: {
+    name: 'Fireball Classic',
+    make: 'Bally',
+    year: 1985
+  },
+  175: {
+    name: 'Banzai Run',
+    make: 'Williams',
+    year: 1988
+  },
+  5550: {
+    name: 'Iron Man',
+    make: 'Stern',
+    year: 2010
+  },
+  392: {
+    name: 'Buck Rogers',
+    make: 'Gottlieb',
+    year: 1980
+  },
+  3915: {
+    name: 'Scared Stiff',
+    make: 'Bally',
+    year: 1996
+  },
+  4505: {
+    name: 'Monopoly',
+    make: 'Stern',
+    year: 2001
+  },
+  4502: {
+    name: 'High Roller Casino',
+    make: 'Stern',
+    year: 2001
+  },
   6155: {
     name: 'The Walking Dead',
     make: 'Stern',
@@ -352,6 +387,7 @@ export var mapToIpdbId = {
   "Eight Ball Deluxe": 762,
   "Meteor": 1580,
   "Dark Knight": 5307,
+  "Batman (Stern)": 5307,
   "Kiss (Bally)": 1386,
   "Teenage Mutant Ninja Turtles": 2509,
   "Elvira and the Party Monsters": 782,
@@ -372,7 +408,14 @@ export var mapToIpdbId = {
   "High Speed": 1176,
   "Theater of Magic": 2845,
   "Dirty Harry": 684,
+  "Fireball Classic": 853,
   "Fireball 2": 854,
   "Jack*Bot": 3619,
+  "Banzai Run": 175,
+  "Iron Man": 5550,
+  "Buck Rogers": 392,
+  "Scared Stiff": 3915,
+  "Monopoly": 4505,
+  "High Roller Casino": 4502,
   "Tales of the Arabian Nights": 3824
 };
