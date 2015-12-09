@@ -4,10 +4,8 @@ import {PINS_INFO, mapToIpdbId} from "./pins";
 import {getUrlParameter, findPercentile, addCommas} from "./utils";
 import {initDropdown} from './bootstrapUtils';
 
-import {initSettings} from './settings';
+import {initSettings, applyPlayerColumnsSetting, applyHideLabelsSetting} from './settings';
 
-
-let $s = {}; // main scope
 
 const PERCENTILES = [.25, .5, .75];
 
@@ -77,7 +75,7 @@ export var init = function () {
   console.log('total loadtime: ' + (Date.now() - startTime) + 'ms');
 
   setupUI();
-  initSettings($s);
+  initSettings();
 
   loadByUrl();
 };
@@ -347,8 +345,8 @@ let rebuildTableRows = function () {
     $('tbody').append(html);
   });
 
-  $s.applyPlayerColumnsSetting();
-  $s.applyHideLabelsSetting();
+  applyPlayerColumnsSetting();
+  applyHideLabelsSetting();
 };
 
 let updateUrl = function () {
