@@ -4,7 +4,7 @@ import {PINS_INFO, mapToIpdbId} from "./pins";
 import {getUrlParameter, addCommas} from "./utils";
 
 import {initSettings, applyPlayerColumnsSetting, applyHideLabelsSetting} from './settings';
-import {initFilters} from './filters';
+import {initFilters, pinFilters} from './filters';
 
 import {
   initStatistics, generateAllStatistics,
@@ -134,8 +134,23 @@ export let rebuildTableRows = function () {
     let pinName = ratioObj.pinName;
     let pinIPDBId = mapToIpdbId[pinName];
     let pinInfo = PINS_INFO[pinIPDBId] || {};
+    let pinMake;
 
     if (_.isNaN(ratioObj.ratio)) {
+      return;
+    }
+
+    if (typeof(pinInfo.make) === 'string') {
+      // normalize make
+      pinMake = pinInfo.make.toLowerCase().replace(' ', '');
+    }
+
+    // filter based on make or year
+    if (pinMake && !pinFilters.makes[pinMake]) {
+      return;
+    }
+    if (pinInfo.year && !(pinFilters.yearStart <= pinInfo.year
+        && pinInfo.year <= pinFilters.yearEnd)) {
       return;
     }
 
@@ -155,8 +170,7 @@ export let rebuildTableRows = function () {
       allPlays: addCommas(allPlaysByPin[pinName])
     };
 
-    if (pinInfo.make) {
-      let pinMake = pinInfo.make.toLowerCase().replace(' ', '');
+    if (pinMake) {
       let pinLabelClass = 'label-' + pinMake;
       context.pinLabelClass = pinLabelClass;
     }

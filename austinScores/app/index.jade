@@ -21,11 +21,47 @@ html(lang="en")
       div.col-md-6
         #settings-accordion.panel-group(role='tablist', aria-multiselectable='true')
           .panel.panel-default
-            #filtersHeading.panel-heading(role='tab')
+            #pinFiltersHeading.panel-heading(role='tab')
               h4.panel-title
-                a(role='button', data-toggle='collapse', data-parent='#accordion', href='#filtersCollapse', aria-expanded='false', aria-controls='filtersCollapse')
+                a(role='button', data-toggle='collapse', data-parent='#accordion', href='#pinFiltersCollapse', aria-expanded='false', aria-controls='pinFiltersCollapse')
+                  | Pin Filters
+            #pinFiltersCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='settingsHeading')
+              .panel-body
+                form.form-inline
+                  .form-group.make-form
+                    label Make: &nbsp;
+                    label.checkbox-inline
+                      input#ballyFilterCheckbox(type='checkbox', value='bally', checked)
+                      |  Bally
+                    label.checkbox-inline
+                      input#dataeastFilterCheckbox(type='checkbox', value='dataeast', checked)
+                      |  Data East
+                    label.checkbox-inline
+                      input#gottliebFilterCheckbox(type='checkbox', value='gottlieb', checked)
+                      |  Gottlieb
+                    label.checkbox-inline
+                      input#segaFilterCheckbox(type='checkbox', value='sega', checked)
+                      |  Sega
+                    label.checkbox-inline
+                      input#sternFilterCheckbox(type='checkbox', value='stern', checked)
+                      |  Stern
+                    label.checkbox-inline
+                      input#williamsFilterCheckbox(type='checkbox', value='williams', checked)
+                      |  Williams
+                br
+                .form-group.year-form
+                  label Year: &nbsp;
+                  label.sr-only(for='startYearFilter') Start Year
+                  input#startYearFilter.form-control(type='text', value='1950')
+                  | &nbsp; to &nbsp;
+                  label.sr-only(for='startEndFilter') End Year
+                  input#endYearFilter.form-control(type='text', value='2050')
+
+            #scoreFiltersHeading.panel-heading(role='tab')
+              h4.panel-title
+                a(role='button', data-toggle='collapse', data-parent='#accordion', href='#scoreFiltersCollapse', aria-expanded='false', aria-controls='scoreFiltersCollapse')
                   | Score Filters
-            #filtersCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='filtersHeading')
+            #scoreFiltersCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='filtersHeading')
               .panel-body
                 form.form-inline
                   .form-group

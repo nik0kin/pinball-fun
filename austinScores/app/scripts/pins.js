@@ -73,7 +73,7 @@ export var PINS_INFO = {
   4444: {
     name: 'South Park',
     make: 'Sega',
-    year: 4444
+    year: 1999
   },
   2252: {
     name: 'Space Invaders',
