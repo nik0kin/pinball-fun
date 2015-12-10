@@ -1,45 +1,53 @@
 import {initDropdown} from './bootstrapUtils';
+import {createLocalStorageObject} from './localStorageUtils';
 
 import {
   hidePlayerColumn, showPlayerColumn,
   hidePinDescLabels, showPinDescLabels
 } from './scoresView';
 
-export var initSettings = function () {
+const settingsDefaults = {
+  shownPlayerColumns: 2,
+  isLabelsHiden: false,
+};
 
-  initDropdown('playerColumnsDropdown', function (text, value) {
-    showPlayerColumns(Number(text));
-  });
+let settings;
+
+export var initSettings = function () {
+  settings = createLocalStorageObject(settingsDefaults);
+
+  initDropdown('playerColumnsDropdown', function (text) {
+    let numOfPlayers = Number(text);
+    showPlayerColumns(numOfPlayers);
+    settings.set('shownPlayerColumns', numOfPlayers);
+  }, settings.get('shownPlayerColumns', Number));
 
   $('#hideLabelsCheckbox').click(function () {
     let isChecked = $(this).prop('checked');
-    isLabelsHiden = isChecked;
+    settings.set('isLabelsHiden', isChecked);
     applyHideLabelsSetting();
-  })
+  });
+  $('#hideLabelsCheckbox').prop('checked', settings.get('isLabelsHiden', Boolean));
 };
 
-let shownPlayerColumns = 4;
 export let applyPlayerColumnsSetting = function () {
-  showPlayerColumns(shownPlayerColumns);
+  showPlayerColumns(settings.get('shownPlayerColumns', Number));
 };
 
-export let showPlayerColumns = function (playerNumber) {
+export let showPlayerColumns = function (numOfPlayers) {
   _.times(4, (playerNum) => {
     playerNum++; // account for playerNum starting at 0
 
-    if (playerNumber < playerNum) {
+    if (numOfPlayers < playerNum) {
       hidePlayerColumn(playerNum);
     } else {
       showPlayerColumn(playerNum);
     }
   });
-
-  shownPlayerColumns = playerNumber;
 };
 
-let isLabelsHiden = false;
 export let applyHideLabelsSetting = function () {
-  if (isLabelsHiden) {
+  if (settings.get('isLabelsHiden', Boolean)) {
     hidePinDescLabels();
   } else {
     showPinDescLabels();

@@ -1,14 +1,18 @@
 
-export var initDropdown = function (dropdownElementId, callback) {
+export var initDropdown = function (dropdownElementId, callback, initialValue) {
+  let getHtml = function (text) { return text + ' <span class="caret"></span>'}; 
+
+  if (initialValue) {
+    $('#'+dropdownElementId + ' .btn').html(getHtml(initialValue));
+  }
+
   $('#'+dropdownElementId+' .dropdown-menu li a').click(function () {
     let $dropdownButton = $(this).parents(".dropdown").find('.btn');
-    let text = $(this).text();
-    let value = $(this).data('value');
-    $dropdownButton.html(text + ' <span class="caret"></span>');
-    $dropdownButton.val(value);
+    let value = $(this).text();
+    $dropdownButton.html(getHtml(value));
 
     if (typeof(callback) === 'function') {
-      callback(text, value);
+      callback(value);
     }
   });
 };

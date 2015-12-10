@@ -28,13 +28,14 @@ export var init = function () {
   playerColumnHeaderTemplate = Handlebars.compile($('#player-column-header').html());
   pinballRowTemplate = Handlebars.compile($('#score-row-template').html());
 
+  initSettings();
+  initFilters();
+
   initStatistics();
 
   console.log('total loadtime: ' + (Date.now() - startTime) + 'ms');
 
   setupUI();
-  initSettings();
-  initFilters();
 
   loadByUrl();
 };
