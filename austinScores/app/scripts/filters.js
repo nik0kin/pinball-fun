@@ -1,10 +1,7 @@
 import {initDropdown} from './bootstrapUtils';
 
 import {generateAllStatistics} from './statistics';
-
-// had to import whole scoresdb modules because ???
-//   http://stackoverflow.com/questions/29353728/exporting-a-class-with-es6-babel
-import * as scoresdb from './scoresdb';
+import {rebuildTableRows} from './scoresdb';
 
 export let scoreFilters = {
   extraBalls: -1,  // -1=any, 1=1, 2=2
@@ -26,6 +23,6 @@ export let initFilters = function () {
     scoreFilters.extraBalls = filterValue;
 
     generateAllStatistics();
-    scoresdb.rebuildTableRows();
+    rebuildTableRows();
   });
 };

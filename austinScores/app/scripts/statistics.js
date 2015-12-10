@@ -1,7 +1,6 @@
 import {findPercentile} from "./utils";
 
-import * as filters from './filters';
-let scoreFilters; // cyclic dependencys dont work with babel/browserify?
+import {scoreFilters} from './filters';
 
 const DEBUG = true;
 
@@ -26,8 +25,6 @@ export let playerPercentilesByPin = {};
 
 
 export function initStatistics () {
-  scoreFilters = filters.scoreFilters;
-
   // load all the json into one array
   _.each(RAW_PINBALL_SCORES, (rawArray) => {
     // http://stackoverflow.com/questions/9650826/append-an-array-to-another-array-in-javascript

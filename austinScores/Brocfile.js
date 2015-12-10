@@ -71,7 +71,7 @@ appLib = concatenate(appLib, {
  * transpile and browserify js files
  */
 
-appJs = esTranspiler(app, {});
+appJs = esTranspiler(app, {browserPolyfill: true});
 
 appJs = browserify(appJs, {
   entries: ['./scripts/main.js'],
