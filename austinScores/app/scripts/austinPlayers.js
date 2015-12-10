@@ -31,6 +31,8 @@ export var AUSTIN_PLAYERS = {
   37826: 'Emily Hobbs',
   39241: 'Joel Pepper',
   14860: 'Gabe Jones',
+  27484: 'Mark Brown',
+  28310: 'Portia Osborne',
 
   14223: "Brian Dols",
   10903: "Colin MacAlpine",

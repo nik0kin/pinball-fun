@@ -340,6 +340,11 @@ export var PINS_INFO = {
     make: 'Stern',
     year: 2001
   },
+  6307: {
+    name: 'Game of Thrones',
+    make: 'Stern',
+    year: 2015
+  },
   6155: {
     name: 'The Walking Dead',
     make: 'Stern',
@@ -417,5 +422,6 @@ export var mapToIpdbId = {
   "Scared Stiff": 3915,
   "Monopoly": 4505,
   "High Roller Casino": 4502,
+  "Game of Thrones": 6307,
   "Tales of the Arabian Nights": 3824
 };
