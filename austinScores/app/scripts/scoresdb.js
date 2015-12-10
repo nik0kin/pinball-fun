@@ -1,40 +1,25 @@
 import {AUSTIN_PLAYERS} from "./austinPlayers";
 import {PINS_INFO, mapToIpdbId} from "./pins";
 
-import {getUrlParameter, findPercentile, addCommas} from "./utils";
-import {initDropdown} from './bootstrapUtils';
+import {getUrlParameter, addCommas} from "./utils";
 
 import {initSettings, applyPlayerColumnsSetting, applyHideLabelsSetting} from './settings';
+import {initFilters} from './filters';
 
+import {
+  initStatistics, generateAllStatistics,
 
-const PERCENTILES = [.25, .5, .75];
+  allScoresArray, playersArray, pinsArray,
+  scoresByPin, allAveragesByPin, allPlaysByPin, allPercentilesByPin,
 
-const DEBUG = true;
+  playerScoresByPin, playerAverageScoreByPin, playerLowScoreByPin,
+  playerHighScoreByPin, playerPlaysByPin, playerPercentilesByPin
+} from './statistics';
 
 let playerColumnHeaderTemplate;
 let pinballRowTemplate;
 
-let allScoresArray = [];
-let playersArray = [];
-let pinsArray = [];
-
-let scoresByPin = {}; // key is pinName, value is an array of scores
-let allAveragesByPin = {}; // key is pinName, value is average of that pin
-let allPlaysByPin = {}; // key is pinName, value is total plays of that pin
-let allPercentilesByPin = {}; // key is pinName, value is an object of percentiles
-
-let playerScoresByPin = {}; // key is playerId, value is {pinName : [array of scores]} 
-let playerAverageScoreByPin = {}; // key is playerId, value is a {} pinName: average
-let playerLowScoreByPin = {}; // key is playerId, value is a {} pinName: low
-let playerHighScoreByPin = {}; // key is playerId, value is a {} pinName: high
-let playerPlaysByPin = {};
-let playerPercentilesByPin = {};
-
 let selectedPlayers = {};
-
-let scoreFilters = {
-  extraBalls: -1,  // -1=any, 1=1, 2=2
-};
 
 export var init = function () {
   let startTime = Date.now();
@@ -43,128 +28,15 @@ export var init = function () {
   playerColumnHeaderTemplate = Handlebars.compile($('#player-column-header').html());
   pinballRowTemplate = Handlebars.compile($('#score-row-template').html());
 
-  // load all the json into one array
-  _.each(RAW_PINBALL_SCORES, (rawArray) => {
-    // http://stackoverflow.com/questions/9650826/append-an-array-to-another-array-in-javascript
-    allScoresArray.push.apply(allScoresArray, rawArray);
-  });
-
-  // Determine which pins and which players
-  _.each(allScoresArray, (score) => {
-    pinsArray = _.union(pinsArray, [score.pinName]);
-    playersArray = _.union(playersArray, [score.playerIfpaId]);
-
-    // create an array for the scoresByPin map
-    if (!scoresByPin[score.pinName]) {
-      scoresByPin[score.pinName] = [];
-    }
-
-    // add Score to scoresByPin map
-    scoresByPin[score.pinName].push(score);
-  });
-
-  if (DEBUG) {
-    console.log(pinsArray.length + ' pins');
-    console.log(playersArray.length + ' players');
-    console.log('pinsArray', pinsArray);
-    console.log('playersArray', playersArray);
-  }
-
-  generateAllStatistics();
+  initStatistics();
 
   console.log('total loadtime: ' + (Date.now() - startTime) + 'ms');
 
   setupUI();
   initSettings();
+  initFilters();
 
   loadByUrl();
-};
-
-let generateAllStatistics = function () {
-  _.each(playersArray, (playerId) => {
-    playerAverageScoreByPin[playerId] = {};
-    playerLowScoreByPin[playerId] = {};
-    playerHighScoreByPin[playerId] = {};
-    playerPlaysByPin[playerId] = {};
-    playerScoresByPin[playerId] = {};
-    playerPercentilesByPin[playerId] = {};
-  });
-
-  // Determine averages
-  _.each(pinsArray, (pinName) => {
-    var totalScore = 0;
-    var totalScoreByPlayer = {};
-    var totalPlaysByPlayer = {};
-
-    _.each(scoresByPin[pinName], (score) => {
-      // skip score, if filters apply
-      if (scoreFilters.extraBalls !== -1 && score.extraBalls != scoreFilters.extraBalls) {
-        return;
-      }
-
-      totalScore += score.score;
-
-      if (!totalScoreByPlayer[score.playerIfpaId]) {
-        totalScoreByPlayer[score.playerIfpaId] = 0;
-        totalPlaysByPlayer[score.playerIfpaId] = 0;
-        playerLowScoreByPin[score.playerIfpaId][pinName] = score.score;
-        playerHighScoreByPin[score.playerIfpaId][pinName] = score.score;
-        playerScoresByPin[score.playerIfpaId][pinName] = [];
-      }
-      totalScoreByPlayer[score.playerIfpaId] += score.score;
-      totalPlaysByPlayer[score.playerIfpaId]++;
-
-      // check for a players lowest/highest on each pin
-      if (score.score < playerLowScoreByPin[score.playerIfpaId][pinName]) {
-        playerLowScoreByPin[score.playerIfpaId][pinName] = score.score;
-      }
-      if (score.score > playerHighScoreByPin[score.playerIfpaId][pinName]) {
-        playerHighScoreByPin[score.playerIfpaId][pinName] = score.score;
-      }
-
-      // add Score to playerScoresByPin
-      playerScoresByPin[score.playerIfpaId][pinName].push(score);
-    });
-
-    // Determine all averages & plays for each pin
-    allPlaysByPin[pinName] = scoresByPin[pinName].length;
-    allAveragesByPin[pinName] = Math.round(totalScore / allPlaysByPin[pinName]);
-
-    // Determine percentiles for all pins
-    allPercentilesByPin[pinName] = {};
-    let scoresArray = _.map(scoresByPin[pinName], (scoreObject) => {
-      return scoreObject.score;
-    });
-    _.each(PERCENTILES, (percentile) => {
-      allPercentilesByPin[pinName][percentile] = findPercentile(scoresArray, percentile);
-    });
-
-    // Determine averages & percentiles of each pin for each player
-    _.each(playersArray, (playerId) => {
-      playerPlaysByPin[playerId][pinName] = totalPlaysByPlayer[playerId];
-      playerAverageScoreByPin[playerId][pinName] = Math.round(totalScoreByPlayer[playerId] / playerPlaysByPin[playerId][pinName]);
-
-      playerPercentilesByPin[playerId][pinName] = {};
-      let playerScoresArray = _.map(playerScoresByPin[playerId][pinName], (scoreObject) => {
-        return scoreObject.score;
-      });
-      _.each(PERCENTILES, (percentile) => {
-        playerPercentilesByPin[playerId][pinName][percentile] = findPercentile(playerScoresArray, percentile);
-      });
-    });
-
-  });
-
-  if (DEBUG) {
-    console.log('allAveragesByPin', allAveragesByPin);
-    console.log('allPlaysByPin', allPlaysByPin);
-
-    console.log('playerAverageScoreByPin', playerAverageScoreByPin);
-    console.log('playerLowScoreByPin', playerLowScoreByPin);
-    console.log('playerHighScoreByPin', playerHighScoreByPin);
-    console.log('playerPlaysByPin', playerPlaysByPin);
-    console.log('playerPercentilesByPin', playerPercentilesByPin);
-  }
 };
 
 let setupUI = function () {
@@ -218,24 +90,6 @@ let setupUI = function () {
     updateUrl();
   });
 
-  initDropdown('extraBallFilterDropdown', function (text, value) {
-    let filterValue;
-    if (text === 'Any') {
-      filterValue = -1;
-    } else {
-      filterValue = Number(text);
-    }
-
-    // don't recompute stats if the filter didnt change
-    if (filterValue === scoreFilters.extraBalls) {
-      return;
-    }
-    scoreFilters.extraBalls = filterValue;
-
-    generateAllStatistics();
-    rebuildTableRows();
-  });
-
   $('#settings-accordion .panel-heading').click(function () {
     let collapseElementId = $(this).find('.panel-title > a').attr('aria-controls');
     $('#'+collapseElementId).collapse('toggle');
@@ -249,7 +103,7 @@ let setupTotals = function () {
   $('.totalEvents').html(RAW_PINBALL_SCORES.length - 1);
 };
 
-let rebuildTableRows = function () {
+export let rebuildTableRows = function () {
   let player1 = selectedPlayers[1];
   let player2 = selectedPlayers[2];
   let player3 = selectedPlayers[3];
