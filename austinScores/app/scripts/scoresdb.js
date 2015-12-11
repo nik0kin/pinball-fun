@@ -1,10 +1,11 @@
 import {AUSTIN_PLAYERS} from "./austinPlayers";
 import {PINS_INFO, mapToIpdbId} from "./pins";
 
-import {getUrlParameter, addCommas} from "./utils";
+import {addCommas} from "./utils";
 
 import {initSettings, applyPlayerColumnsSetting, applyHideLabelsSetting} from './settings';
 import {initFilters, pinFilters} from './filters';
+import {updateUrl, loadByUrl} from './url';
 
 import {
   initStatistics, generateAllStatistics,
@@ -19,7 +20,7 @@ import {
 let playerColumnHeaderTemplate;
 let pinballRowTemplate;
 
-let selectedPlayers = {};
+export let selectedPlayers = {};
 
 export var init = function () {
   let startTime = Date.now();
@@ -38,6 +39,8 @@ export var init = function () {
   setupUI();
 
   loadByUrl();
+
+  rebuildTableRows();
 };
 
 let setupUI = function () {
@@ -216,51 +219,4 @@ export let rebuildTableRows = function () {
 
   applyPlayerColumnsSetting();
   applyHideLabelsSetting();
-};
-
-let updateUrl = function () {
-  var urlString = '/?';
-
-  let buildUrlString = function (playerNum) {
-    if (selectedPlayers[playerNum]) {
-      if (urlString.length > 2) {
-        urlString += '&';
-      }
-      urlString += 'p'+playerNum+'='+selectedPlayers[playerNum];
-    }
-  };
-
-  buildUrlString(1);
-  buildUrlString(2);
-  buildUrlString(3);
-  buildUrlString(4);
-
-  window.location.hash = urlString;
-};
-
-let loadByUrl = function () {
-  let p1 = getUrlParameter('p1');
-  let p2 = getUrlParameter('p2');
-  let p3 = getUrlParameter('p3');
-  let p4 = getUrlParameter('p4');
-
-  if (!p1 && !p2 && !p3 && !p4) {
-    return;
-  }
-
-  let setPlayer = function (playerNum, playerId) {
-    if (!playerId || !AUSTIN_PLAYERS[playerId]) {
-      return;
-    }
-
-    selectedPlayers[playerNum] = playerId;
-    $('#player'+playerNum+'DropdownMenu').html(AUSTIN_PLAYERS[playerId] + ' <span class="caret"></span>');
-  };
-
-  setPlayer(1, p1);
-  setPlayer(2, p2);
-  setPlayer(3, p3);
-  setPlayer(4, p4);
-
-  rebuildTableRows();
 };

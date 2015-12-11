@@ -1,5 +1,6 @@
 import {initDropdown} from './bootstrapUtils';
 import {createLocalStorageObject} from './localStorageUtils';
+import {timesFrom1} from './utils';
 
 import {
   hidePlayerColumn, showPlayerColumn,
@@ -35,9 +36,7 @@ export let applyPlayerColumnsSetting = function () {
 };
 
 export let showPlayerColumns = function (numOfPlayers) {
-  _.times(4, (playerNum) => {
-    playerNum++; // account for playerNum starting at 0
-
+  timesFrom1(4, (playerNum) => {
     if (numOfPlayers < playerNum) {
       hidePlayerColumn(playerNum);
     } else {

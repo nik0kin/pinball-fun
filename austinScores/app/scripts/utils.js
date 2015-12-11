@@ -51,3 +51,9 @@ export var addPropertiesToObject = function (objectA, objectB) {
     objectA[key] = value;
   });
 };
+
+export function timesFrom1 (n, callback) {
+  _.times(n, (i) => {
+    callback(i+1);
+  });
+};
