@@ -349,6 +349,21 @@ export var PINS_INFO = {
     name: 'The Walking Dead',
     make: 'Stern',
     year: 2014
+  },
+  2743: {
+    name: 'Volley',
+    make: 'Gottlieb',
+    year: 1976
+  },
+  2158: {
+    name: 'Simpsons',
+    make: 'Data East',
+    year: 1990
+  },
+  996: {
+    name: 'Genesis',
+    make: 'Gottlieb',
+    year: 1986
   }
 };
 
