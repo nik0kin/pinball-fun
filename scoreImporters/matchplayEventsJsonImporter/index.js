@@ -17,7 +17,7 @@ var configJson;
 var pinsByArenaName = {}; // from config
 var pinsByArenaId = {};
 
-var playersByPlayerId = {}; // matchplay.events player_id
+var playersByPlayerId = {}; // key: matchplay.events player_id
 
 var scoreJsonArray = [];
 
@@ -66,7 +66,7 @@ Q()
           var resultPinInfo = pinsByArenaId[arenaId];
 
           var scoreJson = {
-            playerIfpaId: playersByPlayerId[result.player_id],
+            playerIfpaId: playersByPlayerId[result.player_id].ifpaId,
             pinName: resultPinInfo.name,
             pinId: resultPinInfo.id,
             pinIpdbId: resultPinInfo.ipdbId,

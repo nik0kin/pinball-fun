@@ -1,5 +1,5 @@
 import {AUSTIN_PLAYERS} from "./austinPlayers";
-import {PINS_INFO, mapToIpdbId} from "./pins";
+import {PINS_INFO} from "./pins";
 
 import {addCommas} from "./utils";
 
@@ -10,7 +10,7 @@ import {updateUrl, loadByUrl} from './url';
 import {
   initStatistics, generateAllStatistics,
 
-  allScoresArray, playersArray, pinsArray,
+  allScoresArray, playersArray, pins,
   scoresByPin, allAveragesByPin, allPlaysByPin, allPercentilesByPin,
 
   playerScoresByPin, playerAverageScoreByPin, playerLowScoreByPin,
@@ -102,7 +102,7 @@ let setupUI = function () {
 
 let setupTotals = function () {
   $('.totalScores').html(addCommas(allScoresArray.length));
-  $('.totalPins').html(pinsArray.length);
+  $('.totalPins').html(pins.length);
   $('.totalPlayers').html(_.keys(AUSTIN_PLAYERS).length);
   $('.totalEvents').html(RAW_PINBALL_SCORES.length - 1);
 };
@@ -122,21 +122,20 @@ export let rebuildTableRows = function () {
   }
 
   // Determine player1's median compared with AllMedian for each pin
-  _.each(playerPercentilesByPin[player1], (percentiles, pinName) => {
-    player1PinMedianRatios[pinName] = percentiles[.5] / allPercentilesByPin[pinName][.5];
+  _.each(playerPercentilesByPin[player1], (percentiles, pinIpdb) => {
+    player1PinMedianRatios[pinIpdb] = percentiles[.5] / allPercentilesByPin[pinIpdb][.5];
   });
 
   // Add rows based on pins played by player 1
   //   order them by Highest (AverageScore / AllAverageScore)
-  player1PinMedianRatiosOrdered = _.map(player1PinMedianRatios, (ratio, pinName) => {
-    return {pinName, ratio};
+  player1PinMedianRatiosOrdered = _.map(player1PinMedianRatios, (ratio, pinIpdb) => {
+    return {pinIpdb, ratio};
   });
   player1PinMedianRatiosOrdered = _.map(_.sortByOrder(player1PinMedianRatiosOrdered, ['ratio'], ['asc'])).reverse();
 
   _.each(player1PinMedianRatiosOrdered, (ratioObj) => {
-    let pinName = ratioObj.pinName;
-    let pinIPDBId = mapToIpdbId[pinName];
-    let pinInfo = PINS_INFO[pinIPDBId] || {};
+    let pinIpdb = ratioObj.pinIpdb;
+    let pinInfo = PINS_INFO[pinIpdb] || {};
     let pinMake;
 
     if (_.isNaN(ratioObj.ratio)) {
@@ -159,18 +158,18 @@ export let rebuildTableRows = function () {
 
     let allQuartilesString = '';
     allQuartilesString += 'Top Quartile: ';
-    allQuartilesString += addCommas(allPercentilesByPin[pinName][.75]);
+    allQuartilesString += addCommas(allPercentilesByPin[pinIpdb][.75]);
     allQuartilesString += '\nBottom Quartile: ';
-    allQuartilesString += addCommas(allPercentilesByPin[pinName][.25]);
+    allQuartilesString += addCommas(allPercentilesByPin[pinIpdb][.25]);
     let context = {
-      pinName: pinInfo.name || pinName,
+      pinName: pinInfo.name || pinIpdb,
       pinMake: pinInfo.make,
       pinYear: pinInfo.year,
 
-      allMedian: addCommas(allPercentilesByPin[pinName][.5]),
+      allMedian: addCommas(allPercentilesByPin[pinIpdb][.5]),
       allQuartilesString,
-      allAverage: addCommas(allAveragesByPin[pinName]),
-      allPlays: addCommas(allPlaysByPin[pinName])
+      allAverage: addCommas(allAveragesByPin[pinIpdb]),
+      allPlays: addCommas(allPlaysByPin[pinIpdb])
     };
 
     if (pinMake) {
@@ -179,23 +178,14 @@ export let rebuildTableRows = function () {
     }
 
     let fillContext = function (num, ifpaId) {
-      context['p'+num+'Average'] = addCommas(playerAverageScoreByPin[ifpaId][pinName]);
-      context['p'+num+'High']  = addCommas(playerHighScoreByPin[ifpaId][pinName]);
-      context['p'+num+'Low']  = addCommas(playerLowScoreByPin[ifpaId][pinName]);
-      context['p'+num+'Plays']  = addCommas(playerPlaysByPin[ifpaId][pinName]);
-      context['p'+num+'Median'] = addCommas(playerPercentilesByPin[ifpaId][pinName][.5]);
+      context['p'+num+'Average'] = addCommas(playerAverageScoreByPin[ifpaId][pinIpdb]);
+      context['p'+num+'High']  = addCommas(playerHighScoreByPin[ifpaId][pinIpdb]);
+      context['p'+num+'Low']  = addCommas(playerLowScoreByPin[ifpaId][pinIpdb]);
+      context['p'+num+'Plays']  = addCommas(playerPlaysByPin[ifpaId][pinIpdb]);
+      context['p'+num+'Median'] = addCommas(playerPercentilesByPin[ifpaId][pinIpdb][.5]);
 
-      var medianRatio = playerPercentilesByPin[ifpaId][pinName][.5] / allPercentilesByPin[pinName][.5];
+      var medianRatio = playerPercentilesByPin[ifpaId][pinIpdb][.5] / allPercentilesByPin[pinIpdb][.5];
       context['p'+num+'GoodOrBad'] = (medianRatio > 1.25) ? 'good' : (medianRatio < .75) ? 'bad' : '';  
-      /*
-      let goodOrBad = '';
-      if (playerPercentilesByPin[ifpaId][pinName][.5] > allPercentilesByPin[pinName][.75]) {
-        goodOrBad = 'good';
-      } else if (playerPercentilesByPin[ifpaId][pinName][.5] < allPercentilesByPin[pinName][.25]) {
-        goodOrBad = 'bad';
-      }
-      context['p'+num+'GoodOrBad'] = goodOrBad;
-      */
     };
 
     fillContext(1, player1);
