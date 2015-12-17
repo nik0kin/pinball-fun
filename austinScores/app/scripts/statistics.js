@@ -64,6 +64,15 @@ export function initStatistics () {
   generateAllStatistics();
 };
 
+var getPercentilesFromScores = function (arrayOfScoreObjects) {
+  var scoresArray = _.map(arrayOfScoreObjects, (scoreObject) => scoreObject.score);
+  var obj = {};
+  _.each(PERCENTILES, (percentile) => {
+    obj[percentile] = findPercentile(scoresArray, percentile);
+  });
+  return obj;
+};
+
 export let generateAllStatistics = function () {
   _.each(playersArray, (playerId) => {
     playerAverageScoreByPin[playerId] = {};
@@ -115,26 +124,14 @@ export let generateAllStatistics = function () {
     allAveragesByPin[pinIpdb] = Math.round(totalScore / allPlaysByPin[pinIpdb]);
 
     // Determine percentiles for all pins
-    allPercentilesByPin[pinIpdb] = {};
-    let scoresArray = _.map(scoresByPin[pinIpdb], (scoreObject) => {
-      return scoreObject.score;
-    });
-    _.each(PERCENTILES, (percentile) => {
-      allPercentilesByPin[pinIpdb][percentile] = findPercentile(scoresArray, percentile);
-    });
+    allPercentilesByPin[pinIpdb] = getPercentilesFromScores(scoresByPin[pinIpdb]);
 
     // Determine averages & percentiles of each pin for each player
     _.each(playersArray, (playerId) => {
       playerPlaysByPin[playerId][pinIpdb] = totalPlaysByPlayer[playerId];
       playerAverageScoreByPin[playerId][pinIpdb] = Math.round(totalScoreByPlayer[playerId] / playerPlaysByPin[playerId][pinIpdb]);
 
-      playerPercentilesByPin[playerId][pinIpdb] = {};
-      let playerScoresArray = _.map(playerScoresByPin[playerId][pinIpdb], (scoreObject) => {
-        return scoreObject.score;
-      });
-      _.each(PERCENTILES, (percentile) => {
-        playerPercentilesByPin[playerId][pinIpdb][percentile] = findPercentile(playerScoresArray, percentile);
-      });
+      playerPercentilesByPin[playerId][pinIpdb] = getPercentilesFromScores(playerScoresByPin[playerId][pinIpdb]);
     });
 
   });
