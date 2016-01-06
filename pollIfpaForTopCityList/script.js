@@ -4,7 +4,7 @@
 var RANKINGS_ID = 105; // texas
 var NUM_OF_PLAYERS_POLLED = 500;
 var CITY_MATCH_TERMS = ['austin', 'cedar park', 'round rock', 'leander'];
-var KNOWN_PLAYERS = ['jesse bodell', 'brooke davis', 'paul williams', 'amit patel', 'matt macdougall', 'justin mcbride', 'langel', 'Amanda Boudreault', 'MacAlpine', 'Doreen Esparza', 'Jason Higgins', 'Mark Meserve', 'Matthew Murphy', 'Ray Ford', 'Jason Newman', 'Steve Brownell', 'Zach Schroeder', 'Nick Fowler', 'Phoenix Valentine'];
+var KNOWN_PLAYERS = ['jesse bodell', 'brooke davis', 'paul williams', 'amit patel', 'matt macdougall', 'justin mcbride', 'langel', 'Amanda Boudreault', 'MacAlpine', 'Doreen Esparza', 'Jason Higgins', 'Mark Meserve', 'Matthew Murphy', 'Ray Ford', 'Jason Newman', 'Steve Brownell', 'Zach Schroeder', 'Nick Fowler', 'Phoenix Valentine', 'Jessica Shepherd', 'Mark Brown ATX'];
 var IFPA_URL = 'http://www.ifpapinball.com/rankings/custom_view.php?t=' + NUM_OF_PLAYERS_POLLED + '&id=' + RANKINGS_ID + '&p=1';
 var SAVE_PATH = 'austinRankings/austin_players.js';
 
