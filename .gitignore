@@ -31,7 +31,7 @@ dist/
 
 #####
 
-austin_players.js
+austinRankings/austin_players.js
 
 scoreImporters/pinball-data-import-ed483b4a4c3a.json
 scoreImporters/auth.js
