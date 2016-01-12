@@ -102,7 +102,7 @@ let setupUI = function () {
 
 let setupTotals = function () {
   $('.totalScores').html(addCommas(allScoresArray.length));
-  $('.totalPins').html(pins.length);
+  $('.totalPins').html(_.keys(pins).length);
   $('.totalPlayers').html(_.keys(AUSTIN_PLAYERS).length);
   $('.totalEvents').html(RAW_PINBALL_SCORES.length - 1);
 };
