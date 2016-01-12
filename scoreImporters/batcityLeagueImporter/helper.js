@@ -25,6 +25,11 @@ var scrapeWeekForScoresQ = function (url) {
 
         var $ = require('jquery')(window);
 
+        var date = $('.banner .vMiddleContainer .blockLeft h1 small')
+            .html()
+            .split('-')[1];
+        date = new Date(date).valueOf();
+
         _.each($('.matchResults'), function (matchResultElement) {
           var $matchResult = $(matchResultElement);
           var $matchResultsPlayers = $matchResult.find('.matchResultsPlayers');
@@ -59,6 +64,7 @@ var scrapeWeekForScoresQ = function (url) {
               scores.push({
                 fullName: playerNames[i],
                 pinName: pinName,
+                date: date,
                 score: Number(score)
               });
             });

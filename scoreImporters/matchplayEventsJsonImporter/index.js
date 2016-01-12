@@ -1,12 +1,13 @@
 var path = require('path');
 var Q = require('q');
 var _ = require('lodash');
+var moment = require('moment');
 
 var fsUtils = require('../lib/fsUtils');
 
 var matchplayJsonExportPath = process.argv[2];
 var configPath = process.argv[3];
-var dataName = process.argv[4]
+var dataName = process.argv[4];
 var savePath = path.join(process.cwd(), process.argv[5], (dataName + '.json').replace(/ /g, '_'));
 
 var defaultExtraBalls = 0;
@@ -70,6 +71,7 @@ Q()
             pinName: resultPinInfo.name,
             pinId: resultPinInfo.id,
             pinIpdbId: resultPinInfo.ipdbId,
+            date: moment.utc(game.started_at).valueOf(),
             score: Number(result.score),
             extraBalls: defaultExtraBalls
           };

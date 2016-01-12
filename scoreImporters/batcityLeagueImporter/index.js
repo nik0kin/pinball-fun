@@ -54,6 +54,7 @@ Q()
         playerIfpaId: ifpaId,
         pinName: pinName,
         pinId: playerAndMachineConfig.pinId,
+        date: scrapedScore.date,
         score: scrapedScore.score,
         extraBalls: extraBalls
       };

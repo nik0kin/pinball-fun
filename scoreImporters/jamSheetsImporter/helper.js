@@ -1,4 +1,5 @@
 var GoogleSpreadsheet = require('google-spreadsheet'),
+    moment = require('moment'),
     _ = require('lodash'),
     Q = require('q');
 
@@ -35,7 +36,7 @@ var getRawSheetQ = function (gSheet, sheetNum, playersNum, gamesNum, positionOfT
   return Q.promise(function (resolve, reject) {
 
     gSheet.getCells(sheetNum, {
-        'min-row': positionOfTableTop,
+        'min-row': 1,
         'max-row': positionOfTableTop + playersNum + 1,
         'min-col': 1,
         'max-col': 1 + 2 * gamesNum,
@@ -52,7 +53,11 @@ var getRawSheetQ = function (gSheet, sheetNum, playersNum, gamesNum, positionOfT
         if (!spreadsheetArray[cell.col]) {
           spreadsheetArray[cell.col] = [];
         }
-        if (cell.numericValue === 0 || cell.numericValue) {
+        var date = (""+cell.value).split('/');
+        if (date.length > 1) { // weak ass code
+          date = moment(cell.value, ['MM/DD/YYYY']).valueOf();
+          spreadsheetArray[cell.col][cell.row] = date.valueOf();
+        } else if (cell.numericValue === 0 || cell.numericValue) {
           spreadsheetArray[cell.col][cell.row] = Number(cell.numericValue);
         } else {
           spreadsheetArray[cell.col][cell.row] = cell.value;

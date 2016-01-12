@@ -350,6 +350,31 @@ export var PINS_INFO = {
     make: 'Stern',
     year: 2014
   },
+  1267: {
+    name: 'Indiana Jones: The Pinball Adventure',
+    make: 'Williams',
+    year: 1993
+  },
+  651: {
+    name: 'Defender',
+    make: 'Williams',
+    year: 1982
+  },
+  1000: {
+    name: 'The Getaway: High Speed II',
+    make: 'Williams',
+    year: 1992
+  },
+  738: {
+    name: 'Doctor Who',
+    make: 'Bally',
+    year: 1992
+  },
+  2355: {
+    name: 'Star Trek',
+    make: 'Bally',
+    year: 1979
+  },
   2743: {
     name: 'Volley',
     make: 'Gottlieb',

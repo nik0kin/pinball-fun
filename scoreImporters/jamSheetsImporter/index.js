@@ -57,7 +57,9 @@ Q()
 
     _.each(rawScoreSheetsArray, function (rawScoreSheet, scoreSheetIndex) {
       //console.log('week ' + (scoreSheetIndex+1));
-      
+      var date = rawScoreSheet[1][2];
+      console.log('Reading scores from ' + new Date(date).toString());
+
       gamesNamesArray[scoreSheetIndex] = [];
       _.times(gamesTotal[scoreSheetIndex], function (g) {
         var gameName = rawScoreSheet[playerColumn + 1 + 2 * g][positionOfTableTop];
@@ -67,24 +69,27 @@ Q()
       _.times(playersTotal, function (playerRow) {
         playerRow = playerRow + positionOfTableTop + 2;
         if (!rawScoreSheet[playerColumn][playerRow]) {
-          console.log('row# bugged ' + playerRow)
+          console.log('row #' + playerRow + ' bugged');
           return;
         }
         var playerName = rawScoreSheet[playerColumn][playerRow];
         //console.log(playerName);
         _.each(gamesNamesArray[scoreSheetIndex], function (gameName, g) {
           var score = rawScoreSheet[playerColumn + 1 + 2 * g][playerRow];
-          if (!_.isNumber(score) || score <= 1) {
+          if (!_.isNumber(score) || score <= 1 || _.isNaN(score)) {
             // 0 = no show
             // 1 = disqualify
+            console.log('skipping: ' + playerName + ' ' + score + ' ' + gameName);
             return;
           }
           //console.log('game ' + gameName + ': ' + score);
           var pinName = gameName,
+              pinIpdbId,
               pinId = playerAndMachineConfig.pins[gameName];
 
           if (_.isObject(playerAndMachineConfig.pins[gameName])) {
             var pinConfig = playerAndMachineConfig.pins[gameName];
+            pinIpdbId = pinConfig.pinIpdbId;
             if (pinConfig.as) {
               //console.log(pinName + ' => ' + pinConfig.as);
               pinName = pinConfig.as;
@@ -99,7 +104,9 @@ Q()
           var scoreJson = {
             playerIfpaId: playerAndMachineConfig.players[playerName],
             pinName: pinName,
+            pinIpdbId: pinIpdbId,
             pinId: pinId,
+            date: date,
             score: score,
             extraBalls: extraBalls
           };

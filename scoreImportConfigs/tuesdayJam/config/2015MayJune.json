@@ -1,0 +1,25 @@
+{
+  "players": {
+    "Sven": 10087,
+    "Mark": 25752,
+    "Jason": 35434,
+    "Thomas": 27483,
+    "Ray": 22252,
+    "Brian": 14223,
+    "Keri": 20345
+  },
+  "pins": {
+    "Whirlwind": {"pinIpdbId": 2765, "id": "pinballz1"},
+    "Tron": {"pinIpdbId": 5682, "id": "pinballz1"},
+    "Twilight Zone": {"pinIpdbId": 2684, "id": "pinballz1"},
+    "Dirty Harry": {"pinIpdbId": 684, "id": "pinballz1"},
+    "Meteor": {"pinIpdbId": 1580, "id": "pinballz0"},
+    "High Roller Casino": {"pinIpdbId": 4502, "id": "pinballz1"},
+    "IJW": {"pinIpdbId": 1267, "id": "pinballz1"},
+    "Funhouse": {"pinIpdbId": 966, "id": "pinballz1"},
+    "Iron Man": {"pinIpdbId": 5550, "id": "pinballz1"},
+    "Monopoly": {"pinIpdbId": 4505, "id": "pinballz1"},
+    "Defender": {"pinIpdbId": 651, "id": "pinballz1"},
+    "EATPM": {"pinIpdbId": 782, "id": "pinballz1"}
+  }
+}
