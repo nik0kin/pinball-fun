@@ -375,6 +375,26 @@ export var PINS_INFO = {
     make: 'Bally',
     year: 1979
   },
+  4504: {
+    name: 'Austin Powers',
+    make: 'Stern',
+    year: 2001
+  },
+  4014: {
+    name: 'Junk Yard',
+    make: 'Williams',
+    year: 1996
+  },
+  5800: {
+    name: 'The Wizard of Oz',
+    make: 'Jersey Jack',
+    year: 2013
+  },
+  2502: {
+    name: 'Target Pool',
+    make: 'Gottlieb',
+    year: 1969
+  },
   2743: {
     name: 'Volley',
     make: 'Gottlieb',

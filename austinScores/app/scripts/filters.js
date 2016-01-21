@@ -8,7 +8,7 @@ export let scoreFilters = {
 };
 
 export let pinFilters = {
-  makes: {bally:true,dataeast:true,gottlieb:true,sega:true,stern:true,williams:true},
+  makes: {bally:true,dataeast:true,gottlieb:true,sega:true,stern:true,williams:true,jerseyjack:true},
   yearStart: 1950,
   yearEnd: 2050,
 };

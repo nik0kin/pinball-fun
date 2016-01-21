@@ -12,13 +12,28 @@ exports.readFileQ = function (path) {
   });
 };
 
-exports.writeJsonFileQ = function (savePath, json) {
+exports.writeJsonFileQ = function (savePath, json, pretty) {
   return Q.promise(function (resolve, reject) {
-    fs.writeFile(savePath, JSON.stringify(json), function (err) {
+    var jsonString;
+    if (pretty) {
+      jsonString = JSON.stringify(json, null, '  ');
+    } else {
+      jsonString = JSON.stringify(json);
+    }
+
+    fs.writeFile(savePath, jsonString, function (err) {
       if (err) {
         return reject(err);
       }
       resolve();
+    });
+  });
+};
+
+exports.isThereQ = function (path) {
+  return Q.promise(function (resolve, reject) {
+    fs.stat(path, function (err) {
+      resolve(!err);
     });
   });
 };
