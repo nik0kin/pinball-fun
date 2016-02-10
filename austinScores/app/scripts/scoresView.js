@@ -15,6 +15,6 @@ export let showPinDescLabels = function () {
   $('.pin-description .label').show();
 };
 
-export function setDropdownPlayerName (playerNum, playerName) {
-  $('#player'+playerNum+'DropdownMenu').html(playerName + ' <span class="caret"></span>');
+export function setPlayerNameTypeaheadValue (playerNum, playerName) {
+  $('#playerName'+playerNum+'Typeahead').val(playerName);
 };

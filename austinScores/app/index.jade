@@ -176,20 +176,8 @@ html(lang="en")
               | 3
             |  Events
 
-
     script(id="player-column-header" type="text/x-handlebars-template")
-      .dropdown
-        button.btn.btn-default.dropdown-toggle.player-name(id="{{playerIdDropdownMenu}}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
-          | Choose a Player
-          span.caret
-        ul.dropdown-menu(aria-labelledby="{{playerIdDropdownMenu}}")
-          | {{#each players}}
-          li
-            a(data-value="action" data-id="{{ifpaId}}")
-              | {{playerName}}
-          | {{/each}}
-
-
+      input.typeahead(id="{{playerNameTypeaheadId}}" type="text" data-provide="typeahead" placeholder='Choose a Player')
 
     script(id="score-row-template" type="text/x-handlebars-template")
       tr

@@ -47,25 +47,43 @@ let setupUI = function () {
   setupTotals();
 
   let austinPlayers = [];
-  let chooseAPlayerDefault = [{playerName: 'Choose a Player', ifpaId: 99999999}];
+  let playersByName = {};
   _.each(AUSTIN_PLAYERS, (playerName, ifpaId) => {
     austinPlayers.push({playerName, ifpaId});
   });
   // sort Alphabetically + put "Choose a Player" at the top of the dropdown
   austinPlayers = _.sortBy(austinPlayers, (playerObj) => {
+    playersByName[playerObj.playerName] = playerObj;
     return playerObj.playerName;
   });
-  chooseAPlayerDefault.push.apply(chooseAPlayerDefault, austinPlayers);
-  austinPlayers = chooseAPlayerDefault;
 
+  let playerNames = austinPlayers.map((player) => player.playerName);
   let setupPlayerColumn = function (playerNumber) {
     let context = {
-      playerIdDropdownMenu: 'player'+playerNumber+'DropdownMenu',
-      players: austinPlayers
+      playerNameTypeaheadId: 'playerName'+playerNumber+'Typeahead'
     };
 
     let html = playerColumnHeaderTemplate(context);
     $('#player'+playerNumber+'ColumnHeader').html(html);
+
+    $('#'+context.playerNameTypeaheadId).typeahead({
+      source: playerNames,
+      afterSelect: (selectedPlayerName) => {
+        if (!playersByName[selectedPlayerName]) return;
+        selectedPlayers[playerNumber] = playersByName[selectedPlayerName].ifpaId;
+
+        rebuildTableRows();
+        updateUrl();
+      }
+    }).change(function () {
+      let val = $(this).val();
+      // if the player name input is empty, unselect that player column
+      if (val === '') {
+        selectedPlayers[playerNumber] = undefined;
+        rebuildTableRows();
+        updateUrl();
+      }
+    });
   };
 
   setupPlayerColumn(1);
@@ -74,25 +92,6 @@ let setupUI = function () {
   setupPlayerColumn(4);
 
   $('.dropdown-toggle').dropdown();
-  $(".player-header .dropdown-menu li a").click(function(){
-    let $dropdownButton = $(this).parents(".dropdown").find('.btn');
-    $dropdownButton.html($(this).text() + ' <span class="caret"></span>');
-    $dropdownButton.val($(this).data('value'));
-
-    let columnId = $dropdownButton.attr('id').match(/player(\d)DropdownMenu/)[1];
-    let newSelectedPlayer = $(this).attr('data-id');
-
-    if (newSelectedPlayer === "99999999") {
-      selectedPlayers[columnId] = undefined;
-    } else {
-      selectedPlayers[columnId] = newSelectedPlayer;
-    }
-
-    //console.log('player '+columnId+': ', selectedPlayers[columnId])
-
-    rebuildTableRows();
-    updateUrl();
-  });
 
   $('#settings-accordion .panel-heading').click(function () {
     let collapseElementId = $(this).find('.panel-title > a').attr('aria-controls');
@@ -118,6 +117,7 @@ export let rebuildTableRows = function () {
 
   $('tbody').html('');
   if (!player1) {
+    applyPlayerColumnsSetting();
     return;
   }
 

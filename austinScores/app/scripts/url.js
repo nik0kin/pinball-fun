@@ -2,7 +2,7 @@ import {getUrlParameter, timesFrom1} from "./utils";
 
 import {AUSTIN_PLAYERS} from "./austinPlayers";
 
-import {setDropdownPlayerName} from './scoresView';
+import {setPlayerNameTypeaheadValue} from './scoresView';
 import {selectedPlayers} from './scoresdb';
 
 export function updateUrl () {
@@ -29,7 +29,7 @@ export function loadByUrl () {
     }
 
     selectedPlayers[playerNum] = playerId;
-    setDropdownPlayerName(playerNum, AUSTIN_PLAYERS[playerId]);
+    setPlayerNameTypeaheadValue(playerNum, AUSTIN_PLAYERS[playerId]);
   };
 
   timesFrom1(4, (playerNum) => {
