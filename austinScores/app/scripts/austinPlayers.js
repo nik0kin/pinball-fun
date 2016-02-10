@@ -33,7 +33,14 @@ export var AUSTIN_PLAYERS = {
   14860: 'Gabe Jones',
   27484: 'Mark Brown',
   28310: 'Portia Osborne',
-  999999: 'Courtney Gremillion',
+  40445: 'Courtney Gremillion',
+
+  41286: 'PLUNGR!',
+  41287: 'Dave Johnson ATX',
+  41288: 'Quen Franks',
+  41289: 'Alexandra Williams',
+  41290: 'Lilly Roberts',
+  41291: 'Jonathan Newkirk',
 
   14223: "Brian Dols",
   10903: "Colin MacAlpine",
