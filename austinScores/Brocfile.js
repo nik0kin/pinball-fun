@@ -11,7 +11,7 @@ var compileSass = require('broccoli-sass'),
 var app = 'app',
     appCss,
     appHtml,
-    appLib,
+    appLib, appLibJs, appLibCss,
     appJs,
     appImg,
     appFonts;
@@ -47,9 +47,22 @@ var bowerItems = [
   {
     dir: '/handlebars',
     files: ['handlebars.js']
+  },
+  {
+    dir: '/bootstrap/dist',
+    files: ['js/bootstrap.js', 'css/bootstrap.css']
+  },
+  {
+    dir: '/moment',
+    files: ['moment.js']
+  },
+  {
+    dir: '/bootstrap-daterangepicker',
+    files: ['daterangepicker.js', 'daterangepicker.css']
   }
 ];
 var bowerTrees = [];
+var concatInputFiles = {css:[],js:[]}; // in the same order as bowerItems
 
 bowerItems.forEach(function (item) {
   var tree = pickFiles(bower, {
@@ -58,14 +71,28 @@ bowerItems.forEach(function (item) {
     destDir: '/lib'
   });
   bowerTrees.push(tree);
+
+  // build inputFiles lists
+  item.files.forEach(function (file) {
+    var extension = file.substring(file.length-3);
+    var array = {'.js': concatInputFiles.js, 'css': concatInputFiles.css}[extension];
+    array.push('lib/' + file);
+  });
 });
 
 appLib = mergeTrees(bowerTrees);
 
-appLib = concatenate(appLib, {
-  inputFiles : ['**/*.js'],
+appLibJs = concatenate(appLib, {
+  inputFiles : concatInputFiles.js,
   outputFile : '/vendor.js'
 });
+
+appLibCss = concatenate(appLib, {
+  inputFiles : concatInputFiles.css,
+  outputFile : '/vendor.css'
+});
+
+appLib = mergeTrees([appLibJs, appLibCss]);
 
 /**
  * transpile and browserify js files
