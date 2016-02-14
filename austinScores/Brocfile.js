@@ -57,8 +57,8 @@ var bowerItems = [
     files: ['moment.js']
   },
   {
-    dir: '/bootstrap3-typeahead',
-    files: ['bootstrap3-typeahead.js']
+    dir: '/typeahead.js',
+    files: ['dist/typeahead.jquery.js']
   },
   {
     dir: '/bootstrap-daterangepicker',

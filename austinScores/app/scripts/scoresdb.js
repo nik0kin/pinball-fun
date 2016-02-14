@@ -2,6 +2,7 @@ import {AUSTIN_PLAYERS} from "./austinPlayers";
 import {PINS_INFO} from "./pins";
 
 import {addCommas} from "./utils";
+import {substringMatcher} from './typeaheadUtils';
 
 import {initSettings, applyPlayerColumnsSetting, applyHideLabelsSetting} from './settings';
 import {initFilters, pinFilters} from './filters';
@@ -67,15 +68,19 @@ let setupUI = function () {
     $('#player'+playerNumber+'ColumnHeader').html(html);
 
     $('#'+context.playerNameTypeaheadId).typeahead({
-      source: playerNames,
-      afterSelect: (selectedPlayerName) => {
-        if (!playersByName[selectedPlayerName]) return;
-        selectedPlayers[playerNumber] = playersByName[selectedPlayerName].ifpaId;
+      hint: true,
+      highlight: true,
+      minLength: 1,
+    }, {
+      source: substringMatcher(playerNames)
+    }).on('typeahead:select', function (e, selectedPlayerName) {
+      if (!playersByName[selectedPlayerName]) return;
+      selectedPlayers[playerNumber] = playersByName[selectedPlayerName].ifpaId;
 
-        rebuildTableRows();
-        updateUrl();
-      }
-    }).change(function () {
+      rebuildTableRows();
+      updateUrl();
+    })
+    .change(function () {
       let val = $(this).val();
       // if the player name input is empty, unselect that player column
       if (val === '') {
