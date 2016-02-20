@@ -17,6 +17,11 @@ export let pinFilters = {
   yearEnd: 2050,
 };
 
+export let playerFilters = {
+  minimumGamesPlayed: 0,
+  maximumGamesPlayed: 9999,
+};
+
 export let initFilters = function () {
   // init Extra Ball filter
   initDropdown('extraBallFilterDropdown', function (text, value) {
@@ -87,4 +92,25 @@ export let initFilters = function () {
 
     rebuildTableRows();
   });
+
+  // init games played filter
+  $('#minimumGamesPlayedFilter').on('change', function () {
+    let gamesPlayedValue = Number(this.value);
+    if (_.isNaN(gamesPlayedValue)) gamesPlayedValue = 0;
+
+    playerFilters.minimumGamesPlayed = gamesPlayedValue;
+
+    generateAllStatistics();
+    rebuildTableRows();
+  });
+  $('#maximumGamesPlayedFilter').on('change', function () {
+    let gamesPlayedValue = Number(this.value);
+    if (_.isNaN(gamesPlayedValue)) gamesPlayedValue = 9999;
+
+    playerFilters.maximumGamesPlayed = gamesPlayedValue;
+
+    generateAllStatistics();
+    rebuildTableRows();
+  });
+
 };

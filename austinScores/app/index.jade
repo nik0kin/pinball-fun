@@ -87,6 +87,24 @@ html(lang="en")
                       span
                       b.caret
 
+            #playerFiltersHeading.panel-heading(role='tab')
+              h4.panel-title
+                a(role='button', data-toggle='collapse', data-parent='#accordion', href='#playerFiltersCollapse', aria-expanded='false', aria-controls='playerFiltersCollapse')
+                  | Player Filters
+            #playerFiltersCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='playerFiltersHeading')
+              .panel-body
+                form.form-inline
+                  .form-group.gamesPlayed-form
+                    label
+                      | Minimum games played: &nbsp;
+                    label.sr-only(for='minimumGamesPlayedFilter') Minimum games played
+                    input#minimumGamesPlayedFilter.form-control(type='text', value='0')
+                    br
+                    label
+                      | Maximum games played: &nbsp;
+                    label.sr-only(for='maximumGamesPlayedFilter') End Maximum games played
+                    input#maximumGamesPlayedFilter.form-control(type='text', value='9999')
+
             #settingsHeading.panel-heading(role='tab')
               h4.panel-title
                 a(role='button', data-toggle='collapse', data-parent='#accordion', href='#settingsCollapse', aria-expanded='false', aria-controls='settingsCollapse')

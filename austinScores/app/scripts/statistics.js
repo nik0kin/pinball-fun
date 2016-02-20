@@ -1,7 +1,7 @@
 import {findPercentile} from "./utils";
 
 import {mapToIpdbId} from "./pins";
-import {scoreFilters} from './filters';
+import {scoreFilters, playerFilters} from './filters';
 
 const DEBUG = true;
 
@@ -11,11 +11,14 @@ const PERCENTILES = [.25, .5, .75];
 export let allScoresArray = [];
 export let playersArray = [];
 export let pins = {}; // key is pinIpdb
+export let numOfGamesPlayedByPlayer = {}; // key is playerId, value is num of total games played by that player
 
 export let scoresByPin = {}; // key is pinIpdb, value is an array of scores
 export let allAveragesByPin = {}; // key is pinIpdb, value is average of that pin
 export let allPlaysByPin = {}; // key is pinIpdb, value is total plays of that pin
 export let allPercentilesByPin = {}; // key is pinIpdb, value is an object of percentiles
+
+export let filteredScoresByPin = {}; // // key is pinIpdb, value is an array of scores, scores passed all the filters
 
 export let playerScoresByPin = {}; // key is playerId, value is {pinIpdb : [array of scores]} 
 export let playerAverageScoreByPin = {}; // key is playerId, value is a {} pinIpdb: average
@@ -43,7 +46,12 @@ export function initStatistics () {
       pins[pinIpdb] = {};
     }
 
-    playersArray = _.union(playersArray, [score.playerIfpaId]);
+    if (!numOfGamesPlayedByPlayer[score.playerIfpaId]) {
+      // on first occurance of playerIfpaId
+      numOfGamesPlayedByPlayer[score.playerIfpaId] = 0;
+      playersArray = _.union(playersArray, [score.playerIfpaId]);
+    }
+    numOfGamesPlayedByPlayer[score.playerIfpaId]++;
 
     // create an array for the scoresByPin map
     if (!scoresByPin[pinIpdb]) {
@@ -59,6 +67,7 @@ export function initStatistics () {
     console.log(playersArray.length + ' players');
     console.log('pins', pins);
     console.log('playersArray', playersArray);
+    console.log('numOfGamesPlayedByPlayer', numOfGamesPlayedByPlayer);
   }
 
   generateAllStatistics();
@@ -83,6 +92,8 @@ export let generateAllStatistics = function () {
     playerPercentilesByPin[playerId] = {};
   });
 
+  filteredScoresByPin = {};
+
   // Determine averages
   _.each(pins, (obj, pinIpdb) => {
     let totalScore = 0;
@@ -102,6 +113,11 @@ export let generateAllStatistics = function () {
         return;
       }
 
+      let gamesPlayed = numOfGamesPlayedByPlayer[score.playerIfpaId];
+      if (gamesPlayed < playerFilters.minimumGamesPlayed || gamesPlayed > playerFilters.maximumGamesPlayed) {
+        return;
+      }
+
       totalScore += score.score;
 
       if (!totalScoreByPlayer[score.playerIfpaId]) {
@@ -113,6 +129,11 @@ export let generateAllStatistics = function () {
       }
       totalScoreByPlayer[score.playerIfpaId] += score.score;
       totalPlaysByPlayer[score.playerIfpaId]++;
+
+      if (!filteredScoresByPin[pinIpdb]) {
+        filteredScoresByPin[pinIpdb] = [];
+      }
+      filteredScoresByPin[pinIpdb].push(score);
 
       // check for a players lowest/highest on each pin
       if (score.score < playerLowScoreByPin[score.playerIfpaId][pinIpdb]) {
@@ -127,11 +148,11 @@ export let generateAllStatistics = function () {
     });
 
     // Determine all averages & plays for each pin
-    allPlaysByPin[pinIpdb] = scoresByPin[pinIpdb].length;
+    allPlaysByPin[pinIpdb] = filteredScoresByPin[pinIpdb].length;
     allAveragesByPin[pinIpdb] = Math.round(totalScore / allPlaysByPin[pinIpdb]);
 
     // Determine percentiles for all pins
-    allPercentilesByPin[pinIpdb] = getPercentilesFromScores(scoresByPin[pinIpdb]);
+    allPercentilesByPin[pinIpdb] = getPercentilesFromScores(filteredScoresByPin[pinIpdb]);
 
     // Determine averages & percentiles of each pin for each player
     _.each(playersArray, (playerId) => {
