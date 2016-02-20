@@ -127,6 +127,13 @@ appJs = browserify(appJs, {
 // Compile Sass to 1 css file
 appCss = compileSass([app], 'styles/main.scss', '/style.css');
 
+// fonts from bootstrap
+appFonts = pickFiles(bower, {
+  srcDir: 'bootstrap/dist',
+  files: ['fonts/glyphicons-halflings-regular.*'],
+  destDir: '/'
+});
+
 
 // Turn pinball scores json into an array with concat
 pinballScores = concatenate(rawScores, {
@@ -139,4 +146,4 @@ pinballScores = concatenate(rawScores, {
 });
 
 // merge HTML, JavaScript and CSS trees into a single tree and export it
-module.exports = mergeTrees([appHtml, appLib, appJs, appCss, pinballScores]);
+module.exports = mergeTrees([appHtml, appLib, appJs, appCss, appFonts, pinballScores]);

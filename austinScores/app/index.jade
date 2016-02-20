@@ -79,6 +79,14 @@ html(lang="en")
                           a 0
                         li
                           a 1
+                  br
+                  .form-group
+                    label(for='scoreDateRange') Date Range: &nbsp;
+                    #scoreDateRange.pull-right(style='background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%')
+                      i.glyphicon.glyphicon-calendar.fa.fa-calendar
+                      span
+                      b.caret
+
             #settingsHeading.panel-heading(role='tab')
               h4.panel-title
                 a(role='button', data-toggle='collapse', data-parent='#accordion', href='#settingsCollapse', aria-expanded='false', aria-controls='settingsCollapse')

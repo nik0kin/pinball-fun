@@ -3,8 +3,12 @@ import {initDropdown} from './bootstrapUtils';
 import {generateAllStatistics} from './statistics';
 import {rebuildTableRows} from './scoresdb';
 
+let allTimeRange = [moment().subtract(50, 'years'), moment().add(50, 'years')];
+
 export let scoreFilters = {
   extraBalls: -1,  // -1=any, 1=1, 2=2
+  startDate: allTimeRange[0],
+  endDate: allTimeRange[1],
 };
 
 export let pinFilters = {
@@ -32,6 +36,28 @@ export let initFilters = function () {
     generateAllStatistics();
     rebuildTableRows();
   });
+
+  // init date range filter
+  let daterangeSelectedCallback = function (start, end) {
+    $('#scoreDateRange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    scoreFilters.startDate = start;
+    scoreFilters.endDate = end;
+
+    generateAllStatistics();
+    rebuildTableRows();
+  };
+  daterangeSelectedCallback(allTimeRange[0], allTimeRange[1]);
+
+  $('#scoreDateRange').daterangepicker({
+      ranges: {
+        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+        'Last 3 Months': [moment().subtract(3, 'month'), moment()],
+        'All Time': allTimeRange
+      }
+  }, daterangeSelectedCallback);
 
   // init make filter
   $('.form-group.make-form .checkbox-inline').click(function () {

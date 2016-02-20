@@ -95,6 +95,13 @@ export let generateAllStatistics = function () {
         return;
       }
 
+      // might be a timezone bug here...
+      // EFF creating a lot of moment() objects here
+      let isInDateRange = moment(score.date).isBetween(scoreFilters.startDate, scoreFilters.endDate);
+      if (!isInDateRange) {
+        return;
+      }
+
       totalScore += score.score;
 
       if (!totalScoreByPlayer[score.playerIfpaId]) {
