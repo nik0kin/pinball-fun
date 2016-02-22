@@ -1,0 +1,95 @@
+doctype html
+
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title
+      | Jam Grouper
+    link(rel="stylesheet" href="vendor.css" type="text/css")
+    link(rel="stylesheet" href="style.css" type="text/css")
+
+  body
+    script(src="vendor.js")
+    script(src="app.js")
+
+    .container
+      .row.list-group#previousSeeding-list-group
+
+      .row.list-group#ifpaPlayers-list-group
+
+      .row.list-group#brandNewPlayers-list-group
+
+      .row.panel.panel-default
+        .panel-heading
+          h3.panel-title
+            | Add a new player
+        form
+          .form-group
+            label(for="addPlayerName") Name
+            input.form-control#addPlayerName-input(type="text" placeholder="Sir Psycho")
+          .form-group.newPlayer-radio-group
+            .radio
+              label
+                input(type="radio" name="newPlayerTypes" value="newPlayerBrandNew" checked="true")
+                | New Player
+            .radio
+              label
+                input(type="radio" name="newPlayerTypes" value="newPlayerIfpa")
+                | Existing Ifpa Player
+          .form-group
+            .list-group#ifpaSearchPlayers-list-group
+          button.btn.btn-default#addPlayer-button(type="button")
+            | Add player
+      .row
+        button.btn#groupitize-button(type="button") GROUPITIZE
+      .row#jamGroups
+
+    script#simpleRow-template(type="text/template")
+      .list-group-item
+        h4.list-group-item-heading {{name}}
+
+    script#previousSeedingRow-template(type="text/template")
+      .list-group-item
+        div.playerPresentCheckbox-div
+          input(type="checkbox" aria-label="..." checked)
+        h4.list-group-item-heading {{name}}
+
+    script#ifpaPlayerRow-template(type="text/template")
+      .list-group-item
+        div.playerPresentCheckbox-div
+          input(type="checkbox" aria-label="..." checked)
+        h4.list-group-item-heading {{name}}
+        span {{rank}}
+
+
+    script#brandNewPlayerRow-template(type="text/template")
+      .list-group-item
+        div.playerPresentCheckbox-div
+          input(type="checkbox" aria-label="..." checked)
+        h4.list-group-item-heading {{name}}
+
+    script#ifpaSearchPlayerRow-template(type="text/template")
+      .list-group-item.ifpaSearchPlayerRow-div
+        h4.list-group-item-heading {{first_name}} {{last_name}}
+        p
+          | {{city}} {{state}} {{country_name}}
+          br
+          | Rank:
+          span.rank {{wppr_rank}}
+
+
+    script#jamGroup-template(type="text/template")
+      .panel.panel-default.jamGroup
+        .panel-heading
+          h3.panel-title
+            | {{groupNumber}} - {{groupLetter}}
+        .row
+          .col-sm-6
+            | {{player1Seed}}). {{player1}}
+          .col-sm-6
+            | {{player2Seed}}). {{player2}}
+        .row
+          .col-sm-6
+            | {{player3Seed}}). {{player3}}
+          .col-sm-6
+            | {{player4Seed}}). {{player4}}

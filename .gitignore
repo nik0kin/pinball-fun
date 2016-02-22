@@ -39,3 +39,5 @@ scoreImporters/auth.js
 austinScores/dist
 austinScores/tmp
 
+jamGrouper/dist
+jamGrouper/tmp
