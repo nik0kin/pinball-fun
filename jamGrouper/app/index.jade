@@ -25,7 +25,7 @@ html(lang="en")
             | Add a new player
         form
           .form-group
-            label(for="addPlayerName") Name
+            label(for="addPlayerName-input") Name
             input.form-control#addPlayerName-input(type="text" placeholder="Sir Psycho")
           .form-group.newPlayer-radio-group
             .radio
@@ -41,6 +41,9 @@ html(lang="en")
           button.btn.btn-default#addPlayer-button(type="button")
             | Add player
       .row
+        .form-group
+          label(for="numOfBigGroups-input") # of Big Groups
+          input.form-control#numOfBigGroups-input(type="text" value="2")
         button.btn#groupitize-button(type="button") GROUPITIZE
       .row#jamGroups
 

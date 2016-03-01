@@ -16,7 +16,7 @@ exports.initAuthedSheet = function (googleSheetsId) {
       });
     })
   });
-}
+};
 
 // returns an array of the 3 week sheets 
 exports.getRawScoresQ = function (sheet, positionOfTableTop, numOfSheetsToRead) {
@@ -66,5 +66,5 @@ var getRawSheetQ = function (gSheet, sheetNum, playersNum, gamesNum, positionOfT
 
       resolve(spreadsheetArray);
     });
-  })
+  });
 };

@@ -14,5 +14,5 @@ cp -r public/* dist/
 (cd austinScores && broccoli build dist/)
 mv austinScores/dist/ dist/scores/ 
 
-(cd jamGrouper && broccoli build dist/)
+(cd jamGrouper && node ./generateTuesdayJamSeeds && broccoli build dist/)
 mv jamGrouper/dist/ dist/jamGrouper/

@@ -1,9 +1,10 @@
+import {TUESDAY_SEEDS} from './tuesdaySeeds';
 
 let ifpaAPIKey = '3487e1eb25ff149d9170d0c23eb5c7e4';
 let ifpaAPIBaseUrl = 'https://api.ifpapinball.com/v1/';
 let ifpaSearchEndpoint = 'player/search'
 
-let seedingFromPreviousTournaments = ['Mark Meserve','Nikolas Poklitar','Jason Newman','Sven Johnson','Jason Higgins','Brandon Whittle','Mark Brown','Ray Ford','Thomas Law','Kirk Goodman','Jessica Shepherd','Gabe Jones','Zach Schroeder','Emily Hobbs','PLUNGR!','Dave Johnson','Matt MacDougall','Quen Franks','Alexandra Williams','Lilly Roberts','Paul Williams Tx','Amit Patel Tx','Jonathan Newkirk'];
+let seedingFromPreviousTournaments = TUESDAY_SEEDS;
 let ifpaPlayersArray = [];
 let brandNewPlayersArray = [];
 
@@ -201,6 +202,19 @@ function groupitize () {
   let seedingList = [];
   let seedI = 1;
 
+  let numOfBigGroups = $('#numOfBigGroups-input').val();
+
+  if (_.isNaN(Number(numOfBigGroups))) {
+    numOfBigGroups = 2;
+    $('#numOfBigGroups-input').val(2);
+  } else {
+    var n = Number(numOfBigGroups);
+    if (n <= 0) {
+      n = 1;
+    }
+    numOfBigGroups = n;
+  }
+
   let addPlayerToSeedingList = function (playerName) {
     if (unpresentPlayers[playerName]) return;
 
@@ -222,8 +236,8 @@ function groupitize () {
 
 
   let numOfGroups = Math.ceil(seedingList.length / 4);
-  if (numOfGroups % 2 === 1) {
-    numOfGroups++;
+  if (numOfGroups % numOfBigGroups != 0) {
+    numOfGroups += numOfBigGroups - (numOfGroups % numOfBigGroups);
   }
   let groups = [];
 
@@ -243,7 +257,7 @@ function groupitize () {
     let player4 = getPlayer(4*numOfGroups - (numOfGroups-i));
     let newGroup = {
       groupNumber: i,
-      groupLetter: (i % 2 === 1) ? 'A' : 'B',
+      groupLetter: ['A','B','C','D'][(i-1) % numOfBigGroups],
       player1: player1.name,
       player1Seed: player1.seed,
       player2: player2.name,

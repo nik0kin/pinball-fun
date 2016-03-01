@@ -13,7 +13,11 @@
   "author": "NIK",
   "license": "ISC",
   "homepage": "https://github.org/nik0kin/pinball-fun",
-  "dependencies": {},
+  "dependencies": {
+    "google-spreadsheet": "^1.1.4",
+    "lodash": "^4.5.1",
+    "q": "^1.4.1"
+  },
   "devDependencies": {
     "broccoli": "^0.13.6",
     "broccoli-babel-transpiler": "5.4.3",
