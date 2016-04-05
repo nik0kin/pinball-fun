@@ -234,8 +234,16 @@ function groupitize () {
   brandNewPlayersArray = _.shuffle(brandNewPlayersArray);
   _.each(brandNewPlayersArray, addPlayerToSeedingList);
 
+  // determine amount of small groups from user or default if too low
+  let minimumSmallGroupsPerSide = Number($('#numOfSmallGroupsPerSide-input').val()); // per big group
+  let minimumSmallGroupSizeLimit = Math.ceil(seedingList.length / 4);
+  let numOfGroups;
+  if (minimumSmallGroupSizeLimit / numOfBigGroups > minimumSmallGroupsPerSide) {
+    numOfGroups = minimumSmallGroupSizeLimit;
+  } else {
+    numOfGroups = minimumSmallGroupsPerSide * numOfBigGroups;
+  }
 
-  let numOfGroups = Math.ceil(seedingList.length / 4);
   if (numOfGroups % numOfBigGroups != 0) {
     numOfGroups += numOfBigGroups - (numOfGroups % numOfBigGroups);
   }
@@ -257,7 +265,7 @@ function groupitize () {
     let player4 = getPlayer(4*numOfGroups - (numOfGroups-i));
     let newGroup = {
       groupNumber: i,
-      groupLetter: ['A','B','C','D'][(i-1) % numOfBigGroups],
+      groupLetter: ['A','B','C','D','E','F'][(i-1) % numOfBigGroups],
       player1: player1.name,
       player1Seed: player1.seed,
       player2: player2.name,
@@ -269,6 +277,32 @@ function groupitize () {
     };
     groups.push(newGroup);
   });
+
+  // pull seeds down (because I'm too lazy to alter the above algorithm)
+  //   - pull lowest seeded players in to lower seeded groups
+  //   - this disgusting code is dedicated to thomas law.
+  if (seedingList.length % numOfGroups != 0) {
+    // only needed if groups aren't all the same size
+
+    // determine player position that needs the pulling
+    let playerPositionToPull = Math.ceil(seedingList.length / numOfGroups);
+    let playerPositionToPullKey = 'player' + playerPositionToPull;
+    let lengthToPull = numOfGroups - (seedingList.length % numOfGroups);
+
+    _.times(numOfGroups, (i) => {
+      // pull them to the lowest seeded group
+      let groupI = numOfGroups - i - 1;
+      if (groupI <= lengthToPull - 1) return;
+
+      // pull from the group seeded above you
+      let pulledPlayer = groups[groupI-lengthToPull][playerPositionToPullKey];
+      let pulledSeed = groups[groupI-lengthToPull][playerPositionToPullKey + 'Seed'];
+      groups[groupI][playerPositionToPullKey] = pulledPlayer;
+      groups[groupI][playerPositionToPullKey + 'Seed'] = pulledSeed;
+      groups[groupI-lengthToPull][playerPositionToPullKey] = '';
+      groups[groupI-lengthToPull][playerPositionToPullKey + 'Seed'] = '';
+    });
+  }
 
   $jamGroups.html('');
   _.each(groups, (group) => {
